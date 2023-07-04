@@ -1,0 +1,12 @@
+`timescale 1ns/1ns
+module CA2_E5_TB ();
+	logic [7:0] aa;
+	assign aa=8'b10000001;
+	wire [7:0] ww1,ww2;
+	abs eee(aa,ww1);
+	abs eeee(aa,ww2);
+	initial begin
+	#1000 $stop;
+	end
+endmodule
+

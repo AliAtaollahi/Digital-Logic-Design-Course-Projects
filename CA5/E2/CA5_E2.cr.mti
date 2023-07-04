@@ -1,0 +1,9 @@
+C:/apps/lesson/ModelSim2/E2_QQ.vo {1 {vlog -work work -stats=none C:/apps/lesson/ModelSim2/E2_QQ.vo
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module E2_QQ
+-- Compiling module hard_block
+
+Top level modules:
+	E2_QQ
+
+} {} {}}

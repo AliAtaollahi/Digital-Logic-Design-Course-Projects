@@ -1,0 +1,10 @@
+`timescale 1ns/1ns
+module with_nand_not (input a,b,c,d,output w);
+	wire i,j,k,l,m;
+	not #(7,9) n1(c,i);
+	not #(7,9) n2(d,j);
+	nand #(14,10) na1(k,i,j);
+	nand #(14,10) na2(m,l,d);
+	nand #(14,10) na3(l,a,b);
+	nand #(14,10) na4(w,k,m);
+endmodule

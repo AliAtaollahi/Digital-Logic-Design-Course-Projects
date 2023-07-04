@@ -1,0 +1,4 @@
+
+module E6 (input a,b,c,d,output w1);
+	
+endmodule

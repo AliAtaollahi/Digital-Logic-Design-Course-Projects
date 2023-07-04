@@ -1,0 +1,57 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "serOut",
+					"strict" : false
+				},
+				{
+					"name" : "w[7]",
+					"strict" : false
+				},
+				{
+					"name" : "w[6]",
+					"strict" : false
+				},
+				{
+					"name" : "w[5]",
+					"strict" : false
+				},
+				{
+					"name" : "w[4]",
+					"strict" : false
+				},
+				{
+					"name" : "w[3]",
+					"strict" : false
+				},
+				{
+					"name" : "w[2]",
+					"strict" : false
+				},
+				{
+					"name" : "w[1]",
+					"strict" : false
+				},
+				{
+					"name" : "w[0]",
+					"strict" : false
+				},
+				{
+					"name" : "serIn",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "reset",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

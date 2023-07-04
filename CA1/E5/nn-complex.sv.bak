@@ -1,0 +1,19 @@
+`timescale 1ns/1ns
+module nn_complex (input a,b,c,d,output w);
+	wire i,j,k,l,m;
+	supply1 Vdd;
+	supply0 Gnd;
+	pmos #(4,7,9) T1(k,Vdd,c);
+	pmos #(4,7,9) T2(l,Vdd,b);
+	pmos #(4,7,9) T3(l,Vdd,a);
+	pmos #(4,7,9) T4(w,k,d);
+	pmos #(4,7,9) T5(w,l,m);
+	pmos #(4,7,9) T6(m,Vdd,d);
+	nmos #(3,5,7) T7(m,Gnd,d);
+	nmos #(3,5,7) T8(i,Gnd,d);
+	nmos #(3,5,7) T9(i,Gnd,c);
+	nmos #(3,5,7) T10(w,i,b);
+	nmos #(3,5,7) T11(j,i,m);
+	nmos #(3,5,7) T12(w,j,a);
+endmodule
+

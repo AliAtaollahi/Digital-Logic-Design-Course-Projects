@@ -1,0 +1,16 @@
+C:/apps/lesson/ModelSim2/ca6_final_TB.sv {1 {vlog -work work -sv -stats=none {C:\apps\lesson\ModelSim2\ca6_final_TB.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ca6_final_TB
+
+Top level modules:
+	ca6_final_TB
+
+} {} {}} C:/apps/lesson/ModelSim2/ca6_final.vo {1 {vlog -work work -stats=none C:/apps/lesson/ModelSim2/ca6_final.vo
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ca6_final
+-- Compiling module hard_block
+
+Top level modules:
+	ca6_final
+
+} {} {}}

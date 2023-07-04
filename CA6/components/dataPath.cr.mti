@@ -1,0 +1,16 @@
+C:/apps/lesson/ModelSim2/datapathTB.sv {1 {vlog -work work -sv -stats=none {C:\apps\lesson\ModelSim2\datapathTB.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module dataPathTB
+
+Top level modules:
+	dataPathTB
+
+} {} {}} C:/apps/lesson/ModelSim2/ca6.vo {1 {vlog -work work -stats=none C:/apps/lesson/ModelSim2/ca6.vo
+Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+-- Compiling module ca6
+-- Compiling module hard_block
+
+Top level modules:
+	ca6
+
+} {} {}}

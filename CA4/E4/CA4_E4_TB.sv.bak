@@ -1,0 +1,21 @@
+`timescale 1ns/1ns
+module CA4_E4_TB ();
+	logic serr=0,c=1,enn=1,resett=0;
+	wire[7:0] ppoo1,ppoo2;
+	register8withMSDFF xx1(serr,c,resett,enn,ppoo1);
+	register8withAlways xx2(serr,c,resett,enn,ppoo1);
+	always #100 c=~c ;
+	initial begin 
+		#3000
+		#50 serr=1;
+		#200 serr=0;
+		#200 serr=0;
+		#200 serr=1;
+		#200 serr=1;
+		#200 serr=0;
+		#200 serr=0;
+		#200 serr=1;
+		#200 serr=0;
+		#1000 $stop; 
+	end
+endmodule

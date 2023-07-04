@@ -1,0 +1,62 @@
+`timescale 1ns/1ns
+module not_ (input c,output w2);
+	supply1 Vdd;
+	supply0 Gnd;
+	pmos #(4,7,9) T5(w2,Vdd,c);
+	nmos #(3,5,7) T6(w2,Gnd,c);
+endmodule
+module not_ctrl_ (input c,EN1,output w1);
+	wire i1,i2,i3;
+	supply1 Vdd;
+	supply0 Gnd;
+	pmos #(4,7,9) T1(i2,Vdd,c);
+	pmos #(4,7,9) T2(w1,i2,i1);
+	pmos #(4,7,9) T3(i1,Vdd,EN1);
+	nmos #(3,5,7) T4(i1,Gnd,EN1);
+	nmos #(3,5,7) T5(w1,i3,EN1);
+	nmos #(3,5,7) T6(i3,Gnd,c);
+endmodule
+module CA2_E1 (input a,b,s,t,output w);
+	wire i,j;
+	not_ not1(s,i);
+	not_ctrl_ nif1(a,i,j);
+	not_ctrl_ nif2(b,s,j);
+	not_ctrl_ nif3(j,t,w);
+endmodule
+module CA2_E3 (input [7:0]a,[7:0]b,s,t,output [7:0]w);
+	CA2_E1 e0(a[0],b[0],s,t,w[0]);
+	CA2_E1 e1(a[1],b[1],s,t,w[1]);
+	CA2_E1 e2(a[2],b[2],s,t,w[2]);
+	CA2_E1 e3(a[3],b[3],s,t,w[3]);
+	CA2_E1 e4(a[4],b[4],s,t,w[4]);
+	CA2_E1 e5(a[5],b[5],s,t,w[5]);
+	CA2_E1 e6(a[6],b[6],s,t,w[6]);
+	CA2_E1 e7(a[7],b[7],s,t,w[7]);
+endmodule
+module slice (input a,b,output w2,w1);
+	wire i;
+	not #(7,9) not1(i,b);
+	xor #(15,25) xor1(w2,a,i);
+	nor #(8,18) nor1(w1,a,i);
+endmodule
+module complimentor8_bit (input [7:0] a,output [7:0] w);
+	supply1 Vdd;
+	wire i[7:0];
+	slice slice0(a[0],Vdd,w[0],i[0]);
+	slice slice1(a[1],i[0],w[1],i[1]);
+	slice slice2(a[2],i[1],w[2],i[2]);
+	slice slice3(a[3],i[2],w[3],i[3]);
+	slice slice4(a[4],i[3],w[4],i[4]);
+	slice slice5(a[5],i[4],w[5],i[5]);
+	slice slice6(a[6],i[5],w[6],i[6]);
+	slice slice7(a[7],i[6],w[7],i[7]);
+endmodule
+module abs (input [7:0] aa,output [7:0] ww);
+	wire [7:0] ii;
+	supply1 Vdd;
+	complimentor8_bit ee(aa,ii);
+	CA2_E3 eee(aa,ii,aa[7],Vdd,ww);
+endmodule
+module abs_assign (input [7:0] aa,output [7:0] ww);
+	assign #(8*25+32) ww = aa[7] ? ~aa + 1'b1 : aa;
+endmodule

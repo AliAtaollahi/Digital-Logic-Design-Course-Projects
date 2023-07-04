@@ -1,0 +1,8 @@
+`timescale 1ns/1ns
+module CA2_E1 (input a,b,s,t,output w);
+	wire i,j;
+	not #(7,9) not1(i,s);
+	notif1 #(14,18,16) nif1(j,a,i);
+	notif1 #(14,18,16) nif1(j,b,s);
+	notif1 #(14,18,16) nif1(w,j,t);
+endmodule

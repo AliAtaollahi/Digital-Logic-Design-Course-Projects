@@ -1,0 +1,11 @@
+`timescale 1ns/1ns
+module with_nnc_TB();
+	reg aa=,bb=1,cc=1,dd=1;
+	wire ww;
+	with_nnc WNNC(aa,bb,cc,dd,ww);
+	initial begin
+	#100 dd=0;cc=0;
+	#100 dd=1;
+	#200 $stop;
+	end
+endmodule

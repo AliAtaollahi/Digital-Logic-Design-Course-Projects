@@ -1,0 +1,707 @@
+Analysis & Synthesis report for ca6_final
+Sun Jan 09 00:19:00 2022
+Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis DSP Block Usage Summary
+  9. State Machine - |ca6_final|controller:inst9|ps
+ 10. Registers Removed During Synthesis
+ 11. General Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Parameter Settings for User Entity Instance: controller:inst9
+ 14. Parameter Settings for User Entity Instance: ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component
+ 15. Parameter Settings for User Entity Instance: ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component
+ 16. Parameter Settings for User Entity Instance: ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component
+ 17. Parameter Settings for User Entity Instance: ca6:inst|const1_16:inst18|lpm_constant:LPM_CONSTANT_component
+ 18. Parameter Settings for Inferred Entity Instance: ca6:inst|mult:inst2|lpm_mult:Mult0
+ 19. lpm_mult Parameter Settings by Entity Instance
+ 20. Post-Synthesis Netlist Statistics for Top Partition
+ 21. Elapsed Time Per Partition
+ 22. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2020  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++------------------------------------+---------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sun Jan 09 00:19:00 2022       ;
+; Quartus Prime Version              ; 20.1.0 Build 711 06/05/2020 SJ Lite Edition ;
+; Revision Name                      ; ca6_final                                   ;
+; Top-level Entity Name              ; ca6_final                                   ;
+; Family                             ; Cyclone IV E                                ;
+; Total logic elements               ; 156                                         ;
+;     Total combinational functions  ; 138                                         ;
+;     Dedicated logic registers      ; 90                                          ;
+; Total registers                    ; 90                                          ;
+; Total pins                         ; 37                                          ;
+; Total virtual pins                 ; 0                                           ;
+; Total memory bits                  ; 0                                           ;
+; Embedded Multiplier 9-bit elements ; 2                                           ;
+; Total PLLs                         ; 0                                           ;
++------------------------------------+---------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE6E22C8        ;                    ;
+; Top-level entity name                                            ; ca6_final          ; ca6_final          ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; Off                ; Off                ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 4           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-4         ;   0.0%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                        ;
++----------------------------------+-----------------+------------------------------------------+-------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                                ; File Name with Absolute Path                                                        ; Library ;
++----------------------------------+-----------------+------------------------------------------+-------------------------------------------------------------------------------------+---------+
+; CU.v                             ; yes             ; User Verilog HDL File                    ; C:/apps/lesson/QuartusPrime/New folder (5)/CU.v                                     ;         ;
+; ca6_final.bdf                    ; yes             ; User Block Diagram/Schematic File        ; C:/apps/lesson/QuartusPrime/New folder (5)/ca6_final.bdf                            ;         ;
+; ca6.bdf                          ; yes             ; Auto-Found Block Diagram/Schematic File  ; C:/apps/lesson/QuartusPrime/New folder (5)/ca6.bdf                                  ;         ;
+; counter8.v                       ; yes             ; Auto-Found Wizard-Generated File         ; C:/apps/lesson/QuartusPrime/New folder (5)/counter8.v                               ;         ;
+; lpm_counter.tdf                  ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_counter.tdf         ;         ;
+; lpm_constant.inc                 ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_constant.inc        ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_decode.inc          ;         ;
+; lpm_add_sub.inc                  ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_add_sub.inc         ;         ;
+; cmpconst.inc                     ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/cmpconst.inc            ;         ;
+; lpm_compare.inc                  ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_compare.inc         ;         ;
+; lpm_counter.inc                  ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_counter.inc         ;         ;
+; dffeea.inc                       ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/dffeea.inc              ;         ;
+; alt_counter_stratix.inc          ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/alt_counter_stratix.inc ;         ;
+; aglobal201.inc                   ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/aglobal201.inc          ;         ;
+; db/cntr_fbj.tdf                  ; yes             ; Auto-Generated Megafunction              ; C:/apps/lesson/QuartusPrime/New folder (5)/db/cntr_fbj.tdf                          ;         ;
+; concat32.v                       ; yes             ; Auto-Found Verilog HDL File              ; C:/apps/lesson/QuartusPrime/New folder (5)/concat32.v                               ;         ;
+; register32_v2.v                  ; yes             ; Auto-Found Verilog HDL File              ; C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v                          ;         ;
+; const0.v                         ; yes             ; Auto-Found Wizard-Generated File         ; C:/apps/lesson/QuartusPrime/New folder (5)/const0.v                                 ;         ;
+; adder32.v                        ; yes             ; Auto-Found Wizard-Generated File         ; C:/apps/lesson/QuartusPrime/New folder (5)/adder32.v                                ;         ;
+; lpm_add_sub.tdf                  ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_add_sub.tdf         ;         ;
+; addcore.inc                      ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/addcore.inc             ;         ;
+; look_add.inc                     ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/look_add.inc            ;         ;
+; bypassff.inc                     ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/bypassff.inc            ;         ;
+; altshift.inc                     ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/altshift.inc            ;         ;
+; alt_stratix_add_sub.inc          ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/alt_stratix_add_sub.inc ;         ;
+; db/add_sub_bqh.tdf               ; yes             ; Auto-Generated Megafunction              ; C:/apps/lesson/QuartusPrime/New folder (5)/db/add_sub_bqh.tdf                       ;         ;
+; const1.v                         ; yes             ; Auto-Found Wizard-Generated File         ; C:/apps/lesson/QuartusPrime/New folder (5)/const1.v                                 ;         ;
+; mult.v                           ; yes             ; Auto-Found Verilog HDL File              ; C:/apps/lesson/QuartusPrime/New folder (5)/mult.v                                   ;         ;
+; mux2.v                           ; yes             ; Auto-Found Wizard-Generated File         ; C:/apps/lesson/QuartusPrime/New folder (5)/mux2.v                                   ;         ;
+; lpm_mux.tdf                      ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_mux.tdf             ;         ;
+; muxlut.inc                       ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/muxlut.inc              ;         ;
+; db/mux_tsc.tdf                   ; yes             ; Auto-Generated Megafunction              ; C:/apps/lesson/QuartusPrime/New folder (5)/db/mux_tsc.tdf                           ;         ;
+; register16.v                     ; yes             ; Auto-Found Verilog HDL File              ; C:/apps/lesson/QuartusPrime/New folder (5)/register16.v                             ;         ;
+; const1_16.v                      ; yes             ; Auto-Found Wizard-Generated File         ; C:/apps/lesson/QuartusPrime/New folder (5)/const1_16.v                              ;         ;
+; lpm_constant.tdf                 ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_constant.tdf        ;         ;
+; rom.v                            ; yes             ; Auto-Found Verilog HDL File              ; C:/apps/lesson/QuartusPrime/New folder (5)/rom.v                                    ;         ;
+; lpm_mult.tdf                     ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_mult.tdf            ;         ;
+; multcore.inc                     ; yes             ; Megafunction                             ; c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/multcore.inc            ;         ;
+; db/mult_7dt.tdf                  ; yes             ; Auto-Generated Megafunction              ; C:/apps/lesson/QuartusPrime/New folder (5)/db/mult_7dt.tdf                          ;         ;
++----------------------------------+-----------------+------------------------------------------+-------------------------------------------------------------------------------------+---------+
+
+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 156       ;
+;                                             ;           ;
+; Total combinational functions               ; 138       ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 47        ;
+;     -- 3 input functions                    ; 44        ;
+;     -- <=2 input functions                  ; 47        ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 104       ;
+;     -- arithmetic mode                      ; 34        ;
+;                                             ;           ;
+; Total registers                             ; 90        ;
+;     -- Dedicated logic registers            ; 90        ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 37        ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 2         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 90        ;
+; Total fan-out                               ; 854       ;
+; Average fan-out                             ; 2.81      ;
++---------------------------------------------+-----------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                     ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                            ; Entity Name   ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------+--------------+
+; |ca6_final                                   ; 138 (1)             ; 90 (0)                    ; 0           ; 2            ; 0       ; 1         ; 37   ; 0            ; |ca6_final                                                                                     ; ca6_final     ; work         ;
+;    |ca6:inst|                                ; 130 (0)             ; 83 (0)                    ; 0           ; 2            ; 0       ; 1         ; 0    ; 0            ; |ca6_final|ca6:inst                                                                            ; ca6           ; work         ;
+;       |adder32:inst7|                        ; 32 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|adder32:inst7                                                              ; adder32       ; work         ;
+;          |lpm_add_sub:LPM_ADD_SUB_component| ; 32 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component                            ; lpm_add_sub   ; work         ;
+;             |add_sub_bqh:auto_generated|     ; 32 (32)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component|add_sub_bqh:auto_generated ; add_sub_bqh   ; work         ;
+;       |counter8:inst|                        ; 5 (0)               ; 3 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|counter8:inst                                                              ; counter8      ; work         ;
+;          |lpm_counter:LPM_COUNTER_component| ; 5 (0)               ; 3 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component                            ; lpm_counter   ; work         ;
+;             |cntr_fbj:auto_generated|        ; 5 (5)               ; 3 (3)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component|cntr_fbj:auto_generated    ; cntr_fbj      ; work         ;
+;       |mult:inst2|                           ; 0 (0)               ; 0 (0)                     ; 0           ; 2            ; 0       ; 1         ; 0    ; 0            ; |ca6_final|ca6:inst|mult:inst2                                                                 ; mult          ; work         ;
+;          |lpm_mult:Mult0|                    ; 0 (0)               ; 0 (0)                     ; 0           ; 2            ; 0       ; 1         ; 0    ; 0            ; |ca6_final|ca6:inst|mult:inst2|lpm_mult:Mult0                                                  ; lpm_mult      ; work         ;
+;             |mult_7dt:auto_generated|        ; 0 (0)               ; 0 (0)                     ; 0           ; 2            ; 0       ; 1         ; 0    ; 0            ; |ca6_final|ca6:inst|mult:inst2|lpm_mult:Mult0|mult_7dt:auto_generated                          ; mult_7dt      ; work         ;
+;       |mux2:inst5|                           ; 26 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|mux2:inst5                                                                 ; mux2          ; work         ;
+;          |lpm_mux:LPM_MUX_component|         ; 26 (0)              ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component                                       ; lpm_mux       ; work         ;
+;             |mux_tsc:auto_generated|         ; 26 (26)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component|mux_tsc:auto_generated                ; mux_tsc       ; work         ;
+;       |register16:inst4|                     ; 0 (0)               ; 16 (16)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|register16:inst4                                                           ; register16    ; work         ;
+;       |register32_v2:inst13|                 ; 65 (65)             ; 32 (32)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|register32_v2:inst13                                                       ; register32_v2 ; work         ;
+;       |register32_v2:inst16|                 ; 2 (2)               ; 32 (32)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|ca6:inst|register32_v2:inst16                                                       ; register32_v2 ; work         ;
+;    |controller:inst9|                        ; 7 (7)               ; 7 (7)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |ca6_final|controller:inst9                                                                    ; controller    ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------------+---------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis DSP Block Usage Summary        ;
++---------------------------------------+-------------+
+; Statistic                             ; Number Used ;
++---------------------------------------+-------------+
+; Simple Multipliers (9-bit)            ; 0           ;
+; Simple Multipliers (18-bit)           ; 1           ;
+; Embedded Multiplier Blocks            ; --          ;
+; Embedded Multiplier 9-bit elements    ; 2           ;
+; Signed Embedded Multipliers           ; 0           ;
+; Unsigned Embedded Multipliers         ; 1           ;
+; Mixed Sign Embedded Multipliers       ; 0           ;
+; Variable Sign Embedded Multipliers    ; 0           ;
+; Dedicated Input Shift Register Chains ; 0           ;
++---------------------------------------+-------------+
+Note: number of Embedded Multiplier Blocks used is only available after a successful fit.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------+
+; State Machine - |ca6_final|controller:inst9|ps                                    ;
++----------+--------+----------+----------+----------+----------+---------+---------+
+; Name     ; ps.add ; ps.Mult3 ; ps.Mult2 ; ps.Mult1 ; ps.Begin ; ps.init ; ps.Idle ;
++----------+--------+----------+----------+----------+----------+---------+---------+
+; ps.Idle  ; 0      ; 0        ; 0        ; 0        ; 0        ; 0       ; 0       ;
+; ps.init  ; 0      ; 0        ; 0        ; 0        ; 0        ; 1       ; 1       ;
+; ps.Begin ; 0      ; 0        ; 0        ; 0        ; 1        ; 0       ; 1       ;
+; ps.Mult1 ; 0      ; 0        ; 0        ; 1        ; 0        ; 0       ; 1       ;
+; ps.Mult2 ; 0      ; 0        ; 1        ; 0        ; 0        ; 0       ; 1       ;
+; ps.Mult3 ; 0      ; 1        ; 0        ; 0        ; 0        ; 0       ; 1       ;
+; ps.add   ; 1      ; 0        ; 0        ; 0        ; 0        ; 0       ; 1       ;
++----------+--------+----------+----------+----------+----------+---------+---------+
+
+
++------------------------------------------------------------+
+; Registers Removed During Synthesis                         ;
++---------------------------------------+--------------------+
+; Register name                         ; Reason for Removal ;
++---------------------------------------+--------------------+
+; controller:inst9|ps~4                 ; Lost fanout        ;
+; controller:inst9|ps~5                 ; Lost fanout        ;
+; controller:inst9|ps~6                 ; Lost fanout        ;
+; Total Number of Removed Registers = 3 ;                    ;
++---------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 90    ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 3     ;
+; Number of registers using Asynchronous Clear ; 87    ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 83    ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------+
+; 9:1                ; 8 bits    ; 48 LEs        ; 40 LEs               ; 8 LEs                  ; No         ; |ca6_final|ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component|mux_tsc:auto_generated|result_node[7] ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: controller:inst9 ;
++----------------+-------+--------------------------------------+
+; Parameter Name ; Value ; Type                                 ;
++----------------+-------+--------------------------------------+
+; Idle           ; 000   ; Unsigned Binary                      ;
+; init           ; 001   ; Unsigned Binary                      ;
+; Begin          ; 010   ; Unsigned Binary                      ;
+; Mult1          ; 011   ; Unsigned Binary                      ;
+; Mult2          ; 100   ; Unsigned Binary                      ;
+; Mult3          ; 101   ; Unsigned Binary                      ;
+; add            ; 110   ; Unsigned Binary                      ;
++----------------+-------+--------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component ;
++------------------------+--------------+---------------------------------------------------------------+
+; Parameter Name         ; Value        ; Type                                                          ;
++------------------------+--------------+---------------------------------------------------------------+
+; AUTO_CARRY_CHAINS      ; ON           ; AUTO_CARRY                                                    ;
+; IGNORE_CARRY_BUFFERS   ; OFF          ; IGNORE_CARRY                                                  ;
+; AUTO_CASCADE_CHAINS    ; ON           ; AUTO_CASCADE                                                  ;
+; IGNORE_CASCADE_BUFFERS ; OFF          ; IGNORE_CASCADE                                                ;
+; LPM_WIDTH              ; 3            ; Signed Integer                                                ;
+; LPM_DIRECTION          ; UP           ; Untyped                                                       ;
+; LPM_MODULUS            ; 0            ; Untyped                                                       ;
+; LPM_AVALUE             ; UNUSED       ; Untyped                                                       ;
+; LPM_SVALUE             ; UNUSED       ; Untyped                                                       ;
+; LPM_PORT_UPDOWN        ; PORT_UNUSED  ; Untyped                                                       ;
+; DEVICE_FAMILY          ; Cyclone IV E ; Untyped                                                       ;
+; CARRY_CHAIN            ; MANUAL       ; Untyped                                                       ;
+; CARRY_CHAIN_LENGTH     ; 48           ; CARRY_CHAIN_LENGTH                                            ;
+; NOT_GATE_PUSH_BACK     ; ON           ; NOT_GATE_PUSH_BACK                                            ;
+; CARRY_CNT_EN           ; SMART        ; Untyped                                                       ;
+; LABWIDE_SCLR           ; ON           ; Untyped                                                       ;
+; USE_NEW_VERSION        ; TRUE         ; Untyped                                                       ;
+; CBXI_PARAMETER         ; cntr_fbj     ; Untyped                                                       ;
++------------------------+--------------+---------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component ;
++------------------------+--------------+---------------------------------------------------------------+
+; Parameter Name         ; Value        ; Type                                                          ;
++------------------------+--------------+---------------------------------------------------------------+
+; LPM_WIDTH              ; 32           ; Signed Integer                                                ;
+; LPM_REPRESENTATION     ; UNSIGNED     ; Untyped                                                       ;
+; LPM_DIRECTION          ; ADD          ; Untyped                                                       ;
+; ONE_INPUT_IS_CONSTANT  ; NO           ; Untyped                                                       ;
+; LPM_PIPELINE           ; 0            ; Untyped                                                       ;
+; MAXIMIZE_SPEED         ; 5            ; Untyped                                                       ;
+; REGISTERED_AT_END      ; 0            ; Untyped                                                       ;
+; OPTIMIZE_FOR_SPEED     ; 5            ; Untyped                                                       ;
+; USE_CS_BUFFERS         ; 1            ; Untyped                                                       ;
+; CARRY_CHAIN            ; MANUAL       ; Untyped                                                       ;
+; CARRY_CHAIN_LENGTH     ; 48           ; CARRY_CHAIN_LENGTH                                            ;
+; DEVICE_FAMILY          ; Cyclone IV E ; Untyped                                                       ;
+; USE_WYS                ; OFF          ; Untyped                                                       ;
+; STYLE                  ; FAST         ; Untyped                                                       ;
+; CBXI_PARAMETER         ; add_sub_bqh  ; Untyped                                                       ;
+; AUTO_CARRY_CHAINS      ; ON           ; AUTO_CARRY                                                    ;
+; IGNORE_CARRY_BUFFERS   ; OFF          ; IGNORE_CARRY                                                  ;
+; AUTO_CASCADE_CHAINS    ; ON           ; AUTO_CASCADE                                                  ;
+; IGNORE_CASCADE_BUFFERS ; OFF          ; IGNORE_CASCADE                                                ;
++------------------------+--------------+---------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component ;
++------------------------+--------------+----------------------------------------------------+
+; Parameter Name         ; Value        ; Type                                               ;
++------------------------+--------------+----------------------------------------------------+
+; AUTO_CARRY_CHAINS      ; ON           ; AUTO_CARRY                                         ;
+; IGNORE_CARRY_BUFFERS   ; OFF          ; IGNORE_CARRY                                       ;
+; AUTO_CASCADE_CHAINS    ; ON           ; AUTO_CASCADE                                       ;
+; IGNORE_CASCADE_BUFFERS ; OFF          ; IGNORE_CASCADE                                     ;
+; LPM_WIDTH              ; 16           ; Signed Integer                                     ;
+; LPM_SIZE               ; 2            ; Signed Integer                                     ;
+; LPM_WIDTHS             ; 1            ; Signed Integer                                     ;
+; LPM_PIPELINE           ; 0            ; Untyped                                            ;
+; CBXI_PARAMETER         ; mux_tsc      ; Untyped                                            ;
+; DEVICE_FAMILY          ; Cyclone IV E ; Untyped                                            ;
++------------------------+--------------+----------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: ca6:inst|const1_16:inst18|lpm_constant:LPM_CONSTANT_component ;
++--------------------+------------------+--------------------------------------------------------------------+
+; Parameter Name     ; Value            ; Type                                                               ;
++--------------------+------------------+--------------------------------------------------------------------+
+; LPM_WIDTH          ; 16               ; Signed Integer                                                     ;
+; LPM_CVALUE         ; 65535            ; Signed Integer                                                     ;
+; ENABLE_RUNTIME_MOD ; NO               ; Untyped                                                            ;
+; CBXI_PARAMETER     ; lpm_constant_1r6 ; Untyped                                                            ;
++--------------------+------------------+--------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: ca6:inst|mult:inst2|lpm_mult:Mult0 ;
++------------------------------------------------+--------------+---------------------+
+; Parameter Name                                 ; Value        ; Type                ;
++------------------------------------------------+--------------+---------------------+
+; AUTO_CARRY_CHAINS                              ; ON           ; AUTO_CARRY          ;
+; IGNORE_CARRY_BUFFERS                           ; OFF          ; IGNORE_CARRY        ;
+; AUTO_CASCADE_CHAINS                            ; ON           ; AUTO_CASCADE        ;
+; IGNORE_CASCADE_BUFFERS                         ; OFF          ; IGNORE_CASCADE      ;
+; LPM_WIDTHA                                     ; 16           ; Untyped             ;
+; LPM_WIDTHB                                     ; 16           ; Untyped             ;
+; LPM_WIDTHP                                     ; 32           ; Untyped             ;
+; LPM_WIDTHR                                     ; 32           ; Untyped             ;
+; LPM_WIDTHS                                     ; 1            ; Untyped             ;
+; LPM_REPRESENTATION                             ; UNSIGNED     ; Untyped             ;
+; LPM_PIPELINE                                   ; 0            ; Untyped             ;
+; LATENCY                                        ; 0            ; Untyped             ;
+; INPUT_A_IS_CONSTANT                            ; NO           ; Untyped             ;
+; INPUT_B_IS_CONSTANT                            ; NO           ; Untyped             ;
+; USE_EAB                                        ; OFF          ; Untyped             ;
+; MAXIMIZE_SPEED                                 ; 6            ; Untyped             ;
+; DEVICE_FAMILY                                  ; Cyclone IV E ; Untyped             ;
+; CARRY_CHAIN                                    ; MANUAL       ; Untyped             ;
+; APEX20K_TECHNOLOGY_MAPPER                      ; LUT          ; TECH_MAPPER_APEX20K ;
+; DEDICATED_MULTIPLIER_CIRCUITRY                 ; AUTO         ; Untyped             ;
+; DEDICATED_MULTIPLIER_MIN_INPUT_WIDTH_FOR_AUTO  ; 0            ; Untyped             ;
+; DEDICATED_MULTIPLIER_MIN_OUTPUT_WIDTH_FOR_AUTO ; 0            ; Untyped             ;
+; CBXI_PARAMETER                                 ; mult_7dt     ; Untyped             ;
+; INPUT_A_FIXED_VALUE                            ; Bx           ; Untyped             ;
+; INPUT_B_FIXED_VALUE                            ; Bx           ; Untyped             ;
+; USE_AHDL_IMPLEMENTATION                        ; OFF          ; Untyped             ;
++------------------------------------------------+--------------+---------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; lpm_mult Parameter Settings by Entity Instance                             ;
++---------------------------------------+------------------------------------+
+; Name                                  ; Value                              ;
++---------------------------------------+------------------------------------+
+; Number of entity instances            ; 1                                  ;
+; Entity Instance                       ; ca6:inst|mult:inst2|lpm_mult:Mult0 ;
+;     -- LPM_WIDTHA                     ; 16                                 ;
+;     -- LPM_WIDTHB                     ; 16                                 ;
+;     -- LPM_WIDTHP                     ; 32                                 ;
+;     -- LPM_REPRESENTATION             ; UNSIGNED                           ;
+;     -- INPUT_A_IS_CONSTANT            ; NO                                 ;
+;     -- INPUT_B_IS_CONSTANT            ; NO                                 ;
+;     -- USE_EAB                        ; OFF                                ;
+;     -- DEDICATED_MULTIPLIER_CIRCUITRY ; AUTO                               ;
+;     -- INPUT_A_FIXED_VALUE            ; Bx                                 ;
+;     -- INPUT_B_FIXED_VALUE            ; Bx                                 ;
++---------------------------------------+------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 37                          ;
+; cycloneiii_ff         ; 90                          ;
+;     CLR               ; 7                           ;
+;     ENA CLR           ; 80                          ;
+;     ENA SLD           ; 3                           ;
+; cycloneiii_lcell_comb ; 140                         ;
+;     arith             ; 34                          ;
+;         2 data inputs ; 3                           ;
+;         3 data inputs ; 31                          ;
+;     normal            ; 106                         ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 2                           ;
+;         2 data inputs ; 42                          ;
+;         3 data inputs ; 13                          ;
+;         4 data inputs ; 47                          ;
+; cycloneiii_mac_mult   ; 1                           ;
+; cycloneiii_mac_out    ; 1                           ;
+;                       ;                             ;
+; Max LUT depth         ; 6.10                        ;
+; Average LUT depth     ; 2.52                        ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:00     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+    Info: Processing started: Sun Jan 09 00:18:51 2022
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off ca6_final -c ca6_final
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file cu.v
+    Info (12023): Found entity 1: controller File: C:/apps/lesson/QuartusPrime/New folder (5)/CU.v Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file ca6_final.bdf
+    Info (12023): Found entity 1: ca6_final
+Info (12127): Elaborating entity "ca6_final" for the top level hierarchy
+Info (12128): Elaborating entity "controller" for hierarchy "controller:inst9"
+Warning (12125): Using design file ca6.bdf, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: ca6
+Info (12128): Elaborating entity "ca6" for hierarchy "ca6:inst"
+Warning (12125): Using design file counter8.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: counter8 File: C:/apps/lesson/QuartusPrime/New folder (5)/counter8.v Line: 40
+Info (12128): Elaborating entity "counter8" for hierarchy "ca6:inst|counter8:inst"
+Info (12128): Elaborating entity "lpm_counter" for hierarchy "ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/counter8.v Line: 73
+Info (12130): Elaborated megafunction instantiation "ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/counter8.v Line: 73
+Info (12133): Instantiated megafunction "ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component" with the following parameter: File: C:/apps/lesson/QuartusPrime/New folder (5)/counter8.v Line: 73
+    Info (12134): Parameter "lpm_direction" = "UP"
+    Info (12134): Parameter "lpm_port_updown" = "PORT_UNUSED"
+    Info (12134): Parameter "lpm_type" = "LPM_COUNTER"
+    Info (12134): Parameter "lpm_width" = "3"
+Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_fbj.tdf
+    Info (12023): Found entity 1: cntr_fbj File: C:/apps/lesson/QuartusPrime/New folder (5)/db/cntr_fbj.tdf Line: 26
+Info (12128): Elaborating entity "cntr_fbj" for hierarchy "ca6:inst|counter8:inst|lpm_counter:LPM_COUNTER_component|cntr_fbj:auto_generated" File: c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_counter.tdf Line: 259
+Warning (12125): Using design file concat32.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: concat32 File: C:/apps/lesson/QuartusPrime/New folder (5)/concat32.v Line: 2
+Info (12128): Elaborating entity "concat32" for hierarchy "ca6:inst|concat32:inst17"
+Warning (10036): Verilog HDL or VHDL warning at concat32.v(3): object "temp" assigned a value but never read File: C:/apps/lesson/QuartusPrime/New folder (5)/concat32.v Line: 3
+Warning (12125): Using design file register32_v2.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: register32_v2 File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 2
+Info (12128): Elaborating entity "register32_v2" for hierarchy "ca6:inst|register32_v2:inst16"
+Warning (12125): Using design file const0.v, which is not specified as a design file for the current project, but contains definitions for 2 design units and 2 entities in project
+    Info (12023): Found entity 1: const0_lpm_constant_r09 File: C:/apps/lesson/QuartusPrime/New folder (5)/const0.v Line: 47
+    Info (12023): Found entity 2: const0 File: C:/apps/lesson/QuartusPrime/New folder (5)/const0.v Line: 62
+Info (12128): Elaborating entity "const0" for hierarchy "ca6:inst|const0:inst10"
+Info (12128): Elaborating entity "const0_lpm_constant_r09" for hierarchy "ca6:inst|const0:inst10|const0_lpm_constant_r09:const0_lpm_constant_r09_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/const0.v Line: 71
+Warning (12125): Using design file adder32.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: adder32 File: C:/apps/lesson/QuartusPrime/New folder (5)/adder32.v Line: 40
+Info (12128): Elaborating entity "adder32" for hierarchy "ca6:inst|adder32:inst7"
+Info (12128): Elaborating entity "lpm_add_sub" for hierarchy "ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/adder32.v Line: 66
+Info (12130): Elaborated megafunction instantiation "ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/adder32.v Line: 66
+Info (12133): Instantiated megafunction "ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component" with the following parameter: File: C:/apps/lesson/QuartusPrime/New folder (5)/adder32.v Line: 66
+    Info (12134): Parameter "lpm_direction" = "ADD"
+    Info (12134): Parameter "lpm_hint" = "ONE_INPUT_IS_CONSTANT=NO,CIN_USED=NO"
+    Info (12134): Parameter "lpm_representation" = "UNSIGNED"
+    Info (12134): Parameter "lpm_type" = "LPM_ADD_SUB"
+    Info (12134): Parameter "lpm_width" = "32"
+Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_bqh.tdf
+    Info (12023): Found entity 1: add_sub_bqh File: C:/apps/lesson/QuartusPrime/New folder (5)/db/add_sub_bqh.tdf Line: 23
+Info (12128): Elaborating entity "add_sub_bqh" for hierarchy "ca6:inst|adder32:inst7|lpm_add_sub:LPM_ADD_SUB_component|add_sub_bqh:auto_generated" File: c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_add_sub.tdf Line: 119
+Warning (12125): Using design file const1.v, which is not specified as a design file for the current project, but contains definitions for 2 design units and 2 entities in project
+    Info (12023): Found entity 1: const1_lpm_constant_be9 File: C:/apps/lesson/QuartusPrime/New folder (5)/const1.v Line: 47
+    Info (12023): Found entity 2: const1 File: C:/apps/lesson/QuartusPrime/New folder (5)/const1.v Line: 62
+Info (12128): Elaborating entity "const1" for hierarchy "ca6:inst|const1:inst9"
+Info (12128): Elaborating entity "const1_lpm_constant_be9" for hierarchy "ca6:inst|const1:inst9|const1_lpm_constant_be9:const1_lpm_constant_be9_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/const1.v Line: 71
+Warning (12125): Using design file mult.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: mult File: C:/apps/lesson/QuartusPrime/New folder (5)/mult.v Line: 2
+Info (12128): Elaborating entity "mult" for hierarchy "ca6:inst|mult:inst2"
+Warning (12125): Using design file mux2.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: mux2 File: C:/apps/lesson/QuartusPrime/New folder (5)/mux2.v Line: 40
+Info (12128): Elaborating entity "mux2" for hierarchy "ca6:inst|mux2:inst5"
+Info (12128): Elaborating entity "lpm_mux" for hierarchy "ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/mux2.v Line: 69
+Info (12130): Elaborated megafunction instantiation "ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/mux2.v Line: 69
+Info (12133): Instantiated megafunction "ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component" with the following parameter: File: C:/apps/lesson/QuartusPrime/New folder (5)/mux2.v Line: 69
+    Info (12134): Parameter "lpm_size" = "2"
+    Info (12134): Parameter "lpm_type" = "LPM_MUX"
+    Info (12134): Parameter "lpm_width" = "16"
+    Info (12134): Parameter "lpm_widths" = "1"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_tsc.tdf
+    Info (12023): Found entity 1: mux_tsc File: C:/apps/lesson/QuartusPrime/New folder (5)/db/mux_tsc.tdf Line: 23
+Info (12128): Elaborating entity "mux_tsc" for hierarchy "ca6:inst|mux2:inst5|lpm_mux:LPM_MUX_component|mux_tsc:auto_generated" File: c:/apps/lesson/quartusprime/quartus/libraries/megafunctions/lpm_mux.tdf Line: 87
+Warning (12125): Using design file register16.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: register16 File: C:/apps/lesson/QuartusPrime/New folder (5)/register16.v Line: 2
+Info (12128): Elaborating entity "register16" for hierarchy "ca6:inst|register16:inst4"
+Warning (12125): Using design file const1_16.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: const1_16 File: C:/apps/lesson/QuartusPrime/New folder (5)/const1_16.v Line: 40
+Info (12128): Elaborating entity "const1_16" for hierarchy "ca6:inst|const1_16:inst18"
+Info (12128): Elaborating entity "lpm_constant" for hierarchy "ca6:inst|const1_16:inst18|lpm_constant:LPM_CONSTANT_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/const1_16.v Line: 49
+Info (12130): Elaborated megafunction instantiation "ca6:inst|const1_16:inst18|lpm_constant:LPM_CONSTANT_component" File: C:/apps/lesson/QuartusPrime/New folder (5)/const1_16.v Line: 49
+Info (12133): Instantiated megafunction "ca6:inst|const1_16:inst18|lpm_constant:LPM_CONSTANT_component" with the following parameter: File: C:/apps/lesson/QuartusPrime/New folder (5)/const1_16.v Line: 49
+    Info (12134): Parameter "lpm_cvalue" = "65535"
+    Info (12134): Parameter "lpm_hint" = "ENABLE_RUNTIME_MOD=NO"
+    Info (12134): Parameter "lpm_type" = "LPM_CONSTANT"
+    Info (12134): Parameter "lpm_width" = "16"
+Warning (12125): Using design file rom.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: rom File: C:/apps/lesson/QuartusPrime/New folder (5)/rom.v Line: 2
+Info (12128): Elaborating entity "rom" for hierarchy "ca6:inst|rom:inst23"
+Info (278001): Inferred 1 megafunctions from design logic
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "ca6:inst|mult:inst2|Mult0" File: C:/apps/lesson/QuartusPrime/New folder (5)/mult.v Line: 3
+Info (12130): Elaborated megafunction instantiation "ca6:inst|mult:inst2|lpm_mult:Mult0" File: C:/apps/lesson/QuartusPrime/New folder (5)/mult.v Line: 3
+Info (12133): Instantiated megafunction "ca6:inst|mult:inst2|lpm_mult:Mult0" with the following parameter: File: C:/apps/lesson/QuartusPrime/New folder (5)/mult.v Line: 3
+    Info (12134): Parameter "LPM_WIDTHA" = "16"
+    Info (12134): Parameter "LPM_WIDTHB" = "16"
+    Info (12134): Parameter "LPM_WIDTHP" = "32"
+    Info (12134): Parameter "LPM_WIDTHR" = "32"
+    Info (12134): Parameter "LPM_WIDTHS" = "1"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "MAXIMIZE_SPEED" = "6"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mult_7dt.tdf
+    Info (12023): Found entity 1: mult_7dt File: C:/apps/lesson/QuartusPrime/New folder (5)/db/mult_7dt.tdf Line: 29
+Warning (13004): Presettable and clearable registers converted to equivalent circuits with latches. Registers power-up to an undefined state, and DEVCLRn places the registers in an undefined state.
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[31]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[31]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[30]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[30]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[29]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[29]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[28]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[28]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[27]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[27]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[26]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[26]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[25]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[25]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[24]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[24]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[23]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[23]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[22]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[22]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[21]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[21]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[20]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[20]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[19]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[19]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[18]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[18]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[17]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[17]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[16]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[16]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[15]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[15]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[14]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[14]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[13]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[13]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[12]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[12]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[11]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[11]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[10]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[10]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[9]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[9]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[8]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[8]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[7]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[7]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[6]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[6]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[5]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[5]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[4]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[4]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[3]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[3]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[2]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[2]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[1]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[1]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+    Warning (13310): Register "ca6:inst|register32_v2:inst13|ParOut[0]" is converted into an equivalent circuit using register "ca6:inst|register32_v2:inst13|ParOut[0]~_emulated" and latch "ca6:inst|register32_v2:inst13|ParOut[31]~1" File: C:/apps/lesson/QuartusPrime/New folder (5)/register32_v2.v Line: 10
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 3 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 195 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 19 input pins
+    Info (21059): Implemented 18 output pins
+    Info (21061): Implemented 156 logic cells
+    Info (21062): Implemented 2 DSP elements
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 47 warnings
+    Info: Peak virtual memory: 4784 megabytes
+    Info: Processing ended: Sun Jan 09 00:19:00 2022
+    Info: Elapsed time: 00:00:09
+    Info: Total CPU time (on all processors): 00:00:20
+
+

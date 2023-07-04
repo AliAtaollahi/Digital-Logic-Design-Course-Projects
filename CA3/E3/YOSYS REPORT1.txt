@@ -1,0 +1,1511 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2016  Clifford Wolf <clifford@clifford.at>           |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.7 (git sha1 61f6811, i686-w64-mingw32.static-gcc 4.9.3 -Os)
+
+
+yosys> read_verilog -sv CA3_E1.sv
+1. Executing Verilog-2005 frontend.
+Parsing SystemVerilog input from `CA3_E1.sv' to AST representation.
+Generating RTLIL representation for module `\ALU1'.
+Note: Assuming pure combinatorial block at CA3_E1.sv:5 in
+compliance with IEC 62142(E):2005 / IEEE Std. 1364.1(E):2002. Recommending
+use of @* instead of @(...) for better match of synthesis and simulation.
+Successfully finished Verilog frontend.
+
+yosys> synth -auto-top
+
+2. Executing SYNTH pass.
+
+2.1. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1.1. Finding top of design hierarchy..
+root of   0 design levels: ALU1
+Automatically selected ALU1 as design top module.
+
+2.1.2. Analyzing design hierarchy..
+Top module:  \ALU1
+
+2.1.3. Analyzing design hierarchy..
+Top module:  \ALU1
+Removed 0 unused modules.
+
+2.2. Executing PROC pass (convert processes to netlists).
+
+2.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$CA3_E1.sv:5$3 in module ALU1.
+Removed a total of 1 dead cases.
+
+2.2.3. Executing PROC_INIT pass (extract init attributes).
+
+2.2.4. Executing PROC_ARST pass (detect async resets in processes).
+
+2.2.5. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ALU1.$proc$CA3_E1.sv:5$3'.
+     1/2: $1\outF[15:0]
+     2/2: $0\outF[15:0]
+
+2.2.6. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ALU1.\outF' from process `\ALU1.$proc$CA3_E1.sv:5$3'.
+
+2.2.7. Executing PROC_DFF pass (convert process syncs to FFs).
+
+2.2.8. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\ALU1.$proc$CA3_E1.sv:5$3'.
+Removing empty process `ALU1.$proc$CA3_E1.sv:5$3'.
+Cleaned up 1 empty switch.
+
+2.3. Executing OPT_EXPR pass (perform const folding).
+Replacing $sshr cell `$sshr$CA3_E1.sv:9$6' (B=1, SHR=1) in module `ALU1' with fixed wiring: { \inN [15] \inN [15:1] }
+Replacing $sshr cell `$sshr$CA3_E1.sv:11$9' (B=1, SHR=1) in module `ALU1' with fixed wiring: { \inM [15] \inM [15:1] }
+Replacing $eq cell `$procmux$22_CMP0' in module `ALU1' with $logic_not.
+
+2.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.5. Executing CHECK pass (checking for obvious problems).
+checking module ALU1..
+found and reported 0 problems.
+
+2.6. Executing OPT pass (performing simple optimizations).
+
+2.6.1. Executing OPT_EXPR pass (perform const folding).
+
+2.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $procmux$14 (pure)
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+
+2.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU1.
+    New input vector for $reduce_or cell $reduce_or$CA3_E1.sv:3$1: { \outF [0] \outF [1] \outF [2] \outF [3] \outF [4] \outF [5] \outF [6] \outF [7] \outF [8] \outF [9] \outF [10] \outF [11] \outF [12] \outF [13] \outF [14] \outF [15] }
+  Optimizing cells in module \ALU1.
+Performed a total of 1 changes.
+
+2.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.6.6. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.6.8. Executing OPT_EXPR pass (perform const folding).
+
+2.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $procmux$14 (pure)
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+
+2.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU1.
+Performed a total of 0 changes.
+
+2.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.6.13. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.6.15. Executing OPT_EXPR pass (perform const folding).
+
+2.6.16. Finished OPT passes. (There is nothing left to do.)
+
+2.7. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 16) from port B of cell ALU1.$add$CA3_E1.sv:9$7 ($add).
+Removed top 30 bits (of 32) from port B of cell ALU1.$add$CA3_E1.sv:10$8 ($add).
+Removed top 16 bits (of 32) from port Y of cell ALU1.$add$CA3_E1.sv:10$8 ($add).
+Removed top 1 bits (of 16) from port B of cell ALU1.$add$CA3_E1.sv:11$10 ($add).
+Removed top 1 bits (of 3) from port B of cell ALU1.$procmux$19_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell ALU1.$procmux$20_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell ALU1.$procmux$21_CMP0 ($eq).
+Removed top 16 bits (of 32) from wire ALU1.$add$CA3_E1.sv:10$8_Y.
+
+2.8. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ALU1:
+  creating $macc model for $add$CA3_E1.sv:10$8 ($add).
+  creating $macc model for $add$CA3_E1.sv:11$10 ($add).
+  creating $macc model for $add$CA3_E1.sv:8$4 ($add).
+  creating $macc model for $add$CA3_E1.sv:8$5 ($add).
+  creating $macc model for $add$CA3_E1.sv:9$7 ($add).
+  merging $macc model for $add$CA3_E1.sv:8$4 into $add$CA3_E1.sv:8$5.
+  creating $alu model for $macc $add$CA3_E1.sv:8$5.
+  creating $alu model for $macc $add$CA3_E1.sv:9$7.
+  creating $alu model for $macc $add$CA3_E1.sv:11$10.
+  creating $alu model for $macc $add$CA3_E1.sv:10$8.
+  creating $alu cell for $add$CA3_E1.sv:10$8: $auto$alumacc.cc:470:replace_alu$24
+  creating $alu cell for $add$CA3_E1.sv:11$10: $auto$alumacc.cc:470:replace_alu$27
+  creating $alu cell for $add$CA3_E1.sv:9$7: $auto$alumacc.cc:470:replace_alu$30
+  creating $alu cell for $add$CA3_E1.sv:8$5: $auto$alumacc.cc:470:replace_alu$33
+  created 4 $alu and 0 $macc cells.
+
+2.9. Executing SHARE pass (SAT-based resource sharing).
+
+2.10. Executing OPT pass (performing simple optimizations).
+
+2.10.1. Executing OPT_EXPR pass (perform const folding).
+
+2.10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $procmux$14 (pure)
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+
+2.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU1.
+Performed a total of 0 changes.
+
+2.10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.10.6. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+  removing unused `$add' cell `$add$CA3_E1.sv:8$4'.
+
+2.10.8. Executing OPT_EXPR pass (perform const folding).
+
+2.10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $procmux$14 (pure)
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+
+2.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU1.
+Performed a total of 0 changes.
+
+2.10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.10.13. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.10.15. Executing OPT_EXPR pass (perform const folding).
+
+2.10.16. Finished OPT passes. (There is nothing left to do.)
+
+2.11. Executing FSM pass (extract and optimize FSM).
+
+2.11.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+2.11.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+2.11.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+2.11.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.11.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+2.11.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+2.11.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+2.11.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+2.12. Executing OPT pass (performing simple optimizations).
+
+2.12.1. Executing OPT_EXPR pass (perform const folding).
+
+2.12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.12.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.12.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.12.5. Finished fast OPT passes.
+
+2.13. Executing MEMORY pass.
+
+2.13.1. Executing MEMORY_DFF pass (merging $dff cells to $memrd and $memwr).
+
+2.13.2. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.13.3. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+2.13.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.13.5. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+2.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.15. Executing OPT pass (performing simple optimizations).
+
+2.15.1. Executing OPT_EXPR pass (perform const folding).
+Optimized away 1 select inputs of $pmux cell `$procmux$14' in module `ALU1'.
+
+2.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.15.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.15.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+  removing unused `$logic_not' cell `$procmux$22_CMP0'.
+
+2.15.5. Finished fast OPT passes.
+
+2.16. Executing MEMORY_MAP pass (converting $mem cells to logic and flip-flops).
+
+2.17. Executing OPT pass (performing simple optimizations).
+
+2.17.1. Executing OPT_EXPR pass (perform const folding).
+
+2.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.17.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $procmux$14 (pure)
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+
+2.17.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU1.
+Performed a total of 0 changes.
+
+2.17.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.17.6. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.17.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.17.8. Executing OPT_EXPR pass (perform const folding).
+
+2.17.9. Finished OPT passes. (There is nothing left to do.)
+
+2.18. Executing TECHMAP pass (map to technology primitives).
+
+2.18.1. Executing Verilog-2005 frontend.
+Parsing Verilog input from `<techmap.v>' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+Mapping ALU1.$reduce_or$CA3_E1.sv:3$1 ($reduce_or) with simplemap.
+Mapping ALU1.$not$CA3_E1.sv:3$2 ($not) with simplemap.
+
+2.18.2. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_alu'.
+Parameter \A_SIGNED = 1
+Parameter \B_SIGNED = 1
+Parameter \A_WIDTH = 15
+Parameter \B_WIDTH = 16
+Parameter \Y_WIDTH = 16
+Generating RTLIL representation for module `$paramod\_90_alu\A_SIGNED=1\B_SIGNED=1\A_WIDTH=15\B_WIDTH=16\Y_WIDTH=16'.
+
+2.18.3. Continuing TECHMAP pass.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$27 using $paramod\_90_alu\A_SIGNED=1\B_SIGNED=1\A_WIDTH=15\B_WIDTH=16\Y_WIDTH=16.
+
+2.18.4. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_alu'.
+Parameter \A_SIGNED = 1
+Parameter \B_SIGNED = 1
+Parameter \A_WIDTH = 2
+Parameter \B_WIDTH = 16
+Parameter \Y_WIDTH = 16
+Generating RTLIL representation for module `$paramod\_90_alu\A_SIGNED=1\B_SIGNED=1\A_WIDTH=2\B_WIDTH=16\Y_WIDTH=16'.
+
+2.18.5. Continuing TECHMAP pass.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$24 using $paramod\_90_alu\A_SIGNED=1\B_SIGNED=1\A_WIDTH=2\B_WIDTH=16\Y_WIDTH=16.
+Mapping ALU1.$and$CA3_E1.sv:12$11 ($and) with simplemap.
+Mapping ALU1.$or$CA3_E1.sv:13$12 ($or) with simplemap.
+Mapping ALU1.$not$CA3_E1.sv:14$13 ($not) with simplemap.
+Mapping ALU1.$procmux$15_CMP0 ($eq) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$30 using $paramod\_90_alu\A_SIGNED=1\B_SIGNED=1\A_WIDTH=15\B_WIDTH=16\Y_WIDTH=16.
+
+2.18.6. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_alu'.
+Parameter \A_SIGNED = 0
+Parameter \B_SIGNED = 0
+Parameter \A_WIDTH = 16
+Parameter \B_WIDTH = 16
+Parameter \Y_WIDTH = 16
+Generating RTLIL representation for module `$paramod\_90_alu\A_SIGNED=0\B_SIGNED=0\A_WIDTH=16\B_WIDTH=16\Y_WIDTH=16'.
+
+2.18.7. Continuing TECHMAP pass.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$33 using $paramod\_90_alu\A_SIGNED=0\B_SIGNED=0\A_WIDTH=16\B_WIDTH=16\Y_WIDTH=16.
+
+2.18.8. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_pmux'.
+Parameter \WIDTH = 16
+Parameter \S_WIDTH = 7
+Generating RTLIL representation for module `$paramod\_90_pmux\WIDTH=16\S_WIDTH=7'.
+
+2.18.9. Continuing TECHMAP pass.
+Mapping ALU1.$procmux$14 using $paramod\_90_pmux\WIDTH=16\S_WIDTH=7.
+Mapping ALU1.$procmux$16_CMP0 ($eq) with simplemap.
+Mapping ALU1.$procmux$17_CMP0 ($eq) with simplemap.
+Mapping ALU1.$procmux$18_CMP0 ($eq) with simplemap.
+Mapping ALU1.$procmux$19_CMP0 ($eq) with simplemap.
+Mapping ALU1.$procmux$20_CMP0 ($eq) with simplemap.
+Mapping ALU1.$procmux$21_CMP0 ($eq) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.$xor$<techmap.v>:262$103 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.$xor$<techmap.v>:263$104 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102 ($and) with simplemap.
+
+2.18.10. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_lcu'.
+Parameter \WIDTH = 16
+Generating RTLIL representation for module `$paramod\_90_lcu\WIDTH=16'.
+
+2.18.11. Executing PROC pass (convert processes to netlists).
+
+2.18.11.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+2.18.11.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+2.18.11.3. Executing PROC_INIT pass (extract init attributes).
+
+2.18.11.4. Executing PROC_ARST pass (detect async resets in processes).
+
+2.18.11.5. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod\_90_lcu\WIDTH=16.$proc$<techmap.v>:207$362'.
+     1/32: $0\p[15:0] [14]
+     2/32: $0\g[15:0] [14]
+     3/32: $0\p[15:0] [12]
+     4/32: $0\g[15:0] [12]
+     5/32: $0\p[15:0] [10]
+     6/32: $0\g[15:0] [10]
+     7/32: $0\p[15:0] [8]
+     8/32: $0\g[15:0] [8]
+     9/32: $0\p[15:0] [6]
+    10/32: $0\g[15:0] [6]
+    11/32: $0\p[15:0] [4]
+    12/32: $0\g[15:0] [4]
+    13/32: $0\p[15:0] [2]
+    14/32: $0\g[15:0] [2]
+    15/32: $0\p[15:0] [13]
+    16/32: $0\g[15:0] [13]
+    17/32: $0\p[15:0] [9]
+    18/32: $0\g[15:0] [9]
+    19/32: $0\p[15:0] [5]
+    20/32: $0\g[15:0] [5]
+    21/32: $0\p[15:0] [11]
+    22/32: $0\g[15:0] [11]
+    23/32: $0\p[15:0] [15]
+    24/32: $0\g[15:0] [15]
+    25/32: $0\p[15:0] [7]
+    26/32: $0\g[15:0] [7]
+    27/32: $0\p[15:0] [3]
+    28/32: $0\g[15:0] [3]
+    29/32: $0\p[15:0] [1]
+    30/32: $0\g[15:0] [1]
+    31/32: $0\g[15:0] [0]
+    32/32: $0\p[15:0] [0]
+
+2.18.11.6. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\_90_lcu\WIDTH=16.\p' from process `$paramod\_90_lcu\WIDTH=16.$proc$<techmap.v>:207$362'.
+No latch inferred for signal `$paramod\_90_lcu\WIDTH=16.\g' from process `$paramod\_90_lcu\WIDTH=16.$proc$<techmap.v>:207$362'.
+
+2.18.11.7. Executing PROC_DFF pass (convert process syncs to FFs).
+
+2.18.11.8. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `$paramod\_90_lcu\WIDTH=16.$proc$<techmap.v>:207$362'.
+Cleaned up 0 empty switches.
+
+2.18.12. Executing OPT pass (performing simple optimizations).
+
+2.18.12.1. Executing OPT_EXPR pass (perform const folding).
+
+2.18.12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\_90_lcu\WIDTH=16'.
+Removed a total of 0 cells.
+
+2.18.12.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.18.12.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\_90_lcu\WIDTH=16..
+  removing unused `$and' cell `$and$<techmap.v>:222$367'.
+  removing unused `$and' cell `$and$<techmap.v>:222$391'.
+  removing unused `$and' cell `$and$<techmap.v>:222$403'.
+  removing unused `$and' cell `$and$<techmap.v>:222$409'.
+  removing unused `$and' cell `$and$<techmap.v>:230$412'.
+  removing unused `$and' cell `$and$<techmap.v>:230$415'.
+  removing unused `$and' cell `$and$<techmap.v>:230$418'.
+  removing unused `$and' cell `$and$<techmap.v>:230$421'.
+  removing unused `$and' cell `$and$<techmap.v>:230$424'.
+  removing unused `$and' cell `$and$<techmap.v>:230$427'.
+  removing unused `$and' cell `$and$<techmap.v>:230$430'.
+  removing unused `$and' cell `$and$<techmap.v>:230$433'.
+  removing unused `$and' cell `$and$<techmap.v>:230$436'.
+  removing unused `$and' cell `$and$<techmap.v>:230$439'.
+  removing unused `$and' cell `$and$<techmap.v>:230$442'.
+  removing unused non-port wire \j.
+  removing unused non-port wire \i.
+  removed 2 unused temporary wires.
+
+2.18.12.5. Finished fast OPT passes.
+
+2.18.13. Continuing TECHMAP pass.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$27.lcu using $paramod\_90_lcu\WIDTH=16.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101 ($mux) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100 ($not) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$27.B_conv ($pos) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$27.A_conv ($pos) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:263$109 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107 ($and) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$24.lcu using $paramod\_90_lcu\WIDTH=16.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106 ($mux) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105 ($not) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$24.B_conv ($pos) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$24.A_conv ($pos) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.$xor$<techmap.v>:262$103 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.$xor$<techmap.v>:263$104 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.$and$<techmap.v>:260$102 ($and) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$30.lcu using $paramod\_90_lcu\WIDTH=16.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101 ($mux) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100 ($not) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$30.B_conv ($pos) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$30.A_conv ($pos) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.$xor$<techmap.v>:262$174 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.$xor$<techmap.v>:263$175 ($xor) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173 ($and) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$33.lcu using $paramod\_90_lcu\WIDTH=16.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172 ($mux) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.$not$<techmap.v>:258$171 ($not) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$33.B_conv ($pos) with simplemap.
+Mapping ALU1.$auto$alumacc.cc:470:replace_alu$33.A_conv ($pos) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$199 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$200 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$198 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$197 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$196 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$195 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$194 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$193 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$192 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$191 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$190 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$189 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$188 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$187 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$186 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:441$185 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$184 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$183 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$182 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$181 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$180 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$179 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$and$<techmap.v>:434$178 ($and) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$ternary$<techmap.v>:445$177 ($mux) with simplemap.
+Mapping ALU1.$techmap$procmux$14.$reduce_or$<techmap.v>:445$176 ($reduce_or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$383 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$380 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$377 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$374 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$371 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$368 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$365 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:212$363 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$386 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$389 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$392 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$395 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$398 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$401 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$404 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:221$407 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$370 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$373 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$376 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$379 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$382 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$385 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$388 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$394 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$397 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$400 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:222$406 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$410 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$413 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$416 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$419 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$422 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$425 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$428 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$431 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$434 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$437 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:229$440 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:212$364 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$366 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$369 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$372 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$375 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$378 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$381 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$384 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$387 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$390 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$393 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$396 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$399 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$402 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$405 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:221$408 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$411 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$414 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$417 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$420 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$423 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$426 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$429 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$432 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$435 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$438 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$or$<techmap.v>:229$441 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:212$363 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$365 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$368 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$371 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$374 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$377 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$380 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$383 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$386 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$389 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$392 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$395 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$398 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$401 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$404 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$407 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$370 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$373 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$376 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$379 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$382 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$385 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$388 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$394 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$397 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$400 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$406 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$410 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$413 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$416 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$419 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$422 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$425 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$428 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$431 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$434 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$437 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$440 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:212$364 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$366 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$369 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$372 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$375 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$378 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$381 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$384 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$387 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$390 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$393 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$396 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$399 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$402 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$405 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$408 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$411 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$414 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$417 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$420 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$423 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$426 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$429 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$432 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$435 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$438 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:229$441 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:212$363 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$365 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$368 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$371 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$374 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$377 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$380 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$383 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$386 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$389 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$392 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$395 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$398 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$401 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$404 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:221$407 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$370 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$373 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$376 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$379 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$382 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$385 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$388 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$394 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$397 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$400 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:222$406 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$410 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$413 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$416 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$419 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$422 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$425 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$428 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$431 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$434 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$437 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:229$440 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:212$364 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$366 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$369 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$372 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$375 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$378 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$381 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$384 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$387 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$390 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$393 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$396 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$399 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$402 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$405 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:221$408 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$411 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$414 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$417 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$420 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$423 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$426 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$429 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$432 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$435 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$438 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$or$<techmap.v>:229$441 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:212$363 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$365 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$368 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$371 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$374 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$377 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$380 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$383 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$386 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$389 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$392 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$395 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$398 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$401 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$404 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:221$407 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$370 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$373 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$376 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$379 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$382 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$385 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$388 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$394 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$397 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$400 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:222$406 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$410 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$413 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$416 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$419 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$422 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$425 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$428 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$431 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$434 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$437 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$and$<techmap.v>:229$440 ($and) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:212$364 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$366 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$369 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$372 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$375 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$378 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$381 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$384 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$387 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$390 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$393 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$396 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$399 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$402 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$405 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:221$408 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$411 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$414 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$417 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$420 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$423 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$426 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$429 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$432 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$435 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$438 ($or) with simplemap.
+Mapping ALU1.$techmap$auto$alumacc.cc:470:replace_alu$33.lcu.$or$<techmap.v>:229$441 ($or) with simplemap.
+No more expansions possible.
+
+2.19. Executing OPT pass (performing simple optimizations).
+
+2.19.1. Executing OPT_EXPR pass (perform const folding).
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$444' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [1] = \inM [1]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$443' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [0] = \inM [0]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$445' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [2] = \inM [2]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$700' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [14] = \inN [14]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$698' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [12] = \inN [12]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$699' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [13] = \inN [13]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$694' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [8] = \inN [8]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$695' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [9] = \inN [9]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$696' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [10] = \inN [10]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$697' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [11] = \inN [11]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$690' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [4] = \inN [4]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$691' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [5] = \inN [5]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$692' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [6] = \inN [6]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$693' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [7] = \inN [7]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$688' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [2] = \inN [2]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$689' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [3] = \inN [3]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$687' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [1] = \inN [1]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$686' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [0] = \inN [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$203' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$201 [0] = \opc [0]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$972' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [14] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$719' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$718 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [14]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$229' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$227 [0] = \opc [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$230' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$227 [1] = \opc [1]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$217' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$214 [1] = \opc [1]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$257' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$253 [2] = \opc [2]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$255' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$253 [0] = \opc [0]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$538' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [14] = \inM [14]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$489' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [14] = \inM [14]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$536' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [12] = \inM [12]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$487' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [12] = \inM [12]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$537' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [13] = \inM [13]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$488' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [13] = \inM [13]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$532' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [8] = \inM [8]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$483' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [8] = \inM [8]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$533' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [9] = \inM [9]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$484' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [9] = \inM [9]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$534' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [10] = \inM [10]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$485' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [10] = \inM [10]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$535' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [11] = \inM [11]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$486' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [11] = \inM [11]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$528' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [4] = \inM [4]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$479' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [4] = \inM [4]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$529' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [5] = \inM [5]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$480' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [5] = \inM [5]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$530' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [6] = \inM [6]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$481' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [6] = \inM [6]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$531' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [7] = \inM [7]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$482' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [7] = \inM [7]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$526' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [2] = \inM [2]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$477' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [2] = \inM [2]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$527' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [3] = \inM [3]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$478' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [3] = \inM [3]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$525' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [1] = \inM [1]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$509' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [1] = 1'0'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$476' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [1] = \inM [1]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$524' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [0] = \inM [0]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$508' (1?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [0] = \inM [0]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1064' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:212$363_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1102' (?0) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [0] = \inM [0]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1103' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [1] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$365_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$511' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [3] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$510' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [2] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1066' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$368_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1104' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$369_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1111' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [3] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$389_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$513' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [5] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$512' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [4] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1067' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$371_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1105' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$372_Y = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1074' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$392_Y = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$515' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [7] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$514' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [6] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1068' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$374_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1106' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$375_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1112' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$393_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1115' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [7] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$401_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$517' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [9] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$516' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [8] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1069' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$377_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1107' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$378_Y = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1075' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$395_Y = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$519' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [11] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$518' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [10] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1070' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$380_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1108' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$381_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1113' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$396_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1118' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [11] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$410_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$521' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [13] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$520' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [12] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1071' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$383_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1109' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$384_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1121' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [13] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$419_Y'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$244' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$240 [2] = \opc [2]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$457' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [14] = \inM [14]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$455' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [12] = \inM [12]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$456' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [13] = \inM [13]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$451' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [8] = \inM [8]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$452' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [9] = \inM [9]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$453' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [10] = \inM [10]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$454' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [11] = \inM [11]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$447' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [4] = \inM [4]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$448' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [5] = \inM [5]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$449' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [6] = \inM [6]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$450' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [7] = \inM [7]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$446' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [3] = \inM [3]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1006' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.lcu.$and$<techmap.v>:212$363_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1037' (?0) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$29 [0] = $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$270' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$266 [2] = \opc [2]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$269' (?0) in module `\ALU1' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$266 [1] = \opc [1]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$619' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [14] = \inM [14]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$617' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [12] = \inM [12]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$618' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [13] = \inM [13]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$613' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [8] = \inM [8]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$614' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [9] = \inM [9]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$615' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [10] = \inM [10]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$616' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [11] = \inM [11]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$609' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [4] = \inM [4]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$610' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [5] = \inM [5]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$611' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [6] = \inM [6]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$612' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [7] = \inM [7]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$607' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [2] = \inM [2]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$608' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [3] = \inM [3]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$606' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [1] = \inM [1]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$605' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [0] = \inM [0]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1129' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.lcu.$and$<techmap.v>:212$363_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1167' (?0) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$32 [0] = $techmap$auto$alumacc.cc:470:replace_alu$30.$and$<techmap.v>:260$102_Y [0]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$701' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$ternary$<techmap.v>:258$172_Y [15] = \inN [15]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$973' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [15] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$728' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$727 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [15]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$539' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$ternary$<techmap.v>:258$106_Y [15] = \inM [15]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$490' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [15] = \inM [15]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$522' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [14] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1128' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [14] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$440_Y'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$458' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$ternary$<techmap.v>:258$101_Y [15] = \inM [15]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$620' (??0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$ternary$<techmap.v>:258$101_Y [15] = \inM [15]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$970' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [12] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$746' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$745 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [12]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$971' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [13] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$737' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$736 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [13]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1127' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [12] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$437_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$968' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [10] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$764' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$763 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [10]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1120' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [9] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$416_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$969' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [11] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$755' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$754 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [11]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1126' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [10] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$434_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$966' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [8] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$782' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$781 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [8]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$967' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [9] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$773' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$772 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [9]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1125' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [8] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$431_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$964' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [6] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$800' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$799 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [6]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1119' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [5] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$413_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$965' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [7] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$791' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$790 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [7]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1124' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [6] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$428_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$962' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [4] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$818' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$817 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [4]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$963' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [5] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$809' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$808 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [5]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1123' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [4] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$425_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$960' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [2] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$836' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$835 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [2]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$961' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [3] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$827' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$826 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [3]'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1122' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [2] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:229$422_Y'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$959' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [1] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$845' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$844 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [1]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$958' (const_and) in module `\ALU1' with constant driver `$techmap$procmux$14.$and$<techmap.v>:434$178_Y [0] = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$854' (0?) in module `\ALU1' with constant driver `$auto$simplemap.cc:127:simplemap_reduce$853 [0] = $techmap$procmux$14.$and$<techmap.v>:434$179_Y [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$491' (?0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:263$109_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:262$108_Y [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$295' (?0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$xor$<techmap.v>:263$104_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$27.$xor$<techmap.v>:262$103_Y [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$572' (?0) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$xor$<techmap.v>:263$104_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$30.$xor$<techmap.v>:262$103_Y [0]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$311' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$27.$xor$<techmap.v>:263$104_Y [16] = $auto$alumacc.cc:484:replace_alu$29 [15]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1078' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$404_Y = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1076' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$398_Y = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$523' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$and$<techmap.v>:260$107_Y [15] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$1072' (const_and) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$386_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1110' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$387_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1114' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$399_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1116' (00) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$or$<techmap.v>:221$405_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$1117' (0?) in module `\ALU1' with constant driver `$auto$alumacc.cc:484:replace_alu$26 [15] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$407_Y'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$507' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:263$109_Y [16] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$407_Y'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$588' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$30.$xor$<techmap.v>:263$104_Y [16] = $auto$alumacc.cc:484:replace_alu$32 [15]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$669' (0?) in module `\ALU1' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$33.$xor$<techmap.v>:263$175_Y [16] = $auto$alumacc.cc:484:replace_alu$35 [15]'.
+
+2.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$552' is identical to cell `$auto$simplemap.cc:37:simplemap_not$633'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [12] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [12]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$552' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$551' is identical to cell `$auto$simplemap.cc:37:simplemap_not$632'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [11] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [11]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$551' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$550' is identical to cell `$auto$simplemap.cc:37:simplemap_not$631'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [10] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [10]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$550' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$549' is identical to cell `$auto$simplemap.cc:37:simplemap_not$630'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [9] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [9]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$549' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$548' is identical to cell `$auto$simplemap.cc:37:simplemap_not$629'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [8] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [8]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$548' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$547' is identical to cell `$auto$simplemap.cc:37:simplemap_not$628'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [7] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [7]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$547' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$546' is identical to cell `$auto$simplemap.cc:37:simplemap_not$627'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [6] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [6]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$546' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$545' is identical to cell `$auto$simplemap.cc:37:simplemap_not$626'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [5] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [5]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$545' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$544' is identical to cell `$auto$simplemap.cc:37:simplemap_not$625'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [4] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [4]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$544' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$543' is identical to cell `$auto$simplemap.cc:37:simplemap_not$624'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [3] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [3]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$543' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$542' is identical to cell `$auto$simplemap.cc:37:simplemap_not$623'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [2] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [2]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$542' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$541' is identical to cell `$auto$simplemap.cc:37:simplemap_not$622'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [1] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [1]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$541' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$540' is identical to cell `$auto$simplemap.cc:37:simplemap_not$621'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [0]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$540' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$471' is identical to cell `$auto$simplemap.cc:37:simplemap_not$633'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [12] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [12]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$471' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$470' is identical to cell `$auto$simplemap.cc:37:simplemap_not$632'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [11] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [11]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$470' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$469' is identical to cell `$auto$simplemap.cc:37:simplemap_not$631'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [10] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [10]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$469' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$468' is identical to cell `$auto$simplemap.cc:37:simplemap_not$630'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [9] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [9]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$468' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$467' is identical to cell `$auto$simplemap.cc:37:simplemap_not$629'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [8] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [8]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$467' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$466' is identical to cell `$auto$simplemap.cc:37:simplemap_not$628'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [7] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [7]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$466' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$465' is identical to cell `$auto$simplemap.cc:37:simplemap_not$627'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [6] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [6]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$465' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$464' is identical to cell `$auto$simplemap.cc:37:simplemap_not$626'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [5] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [5]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$464' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$463' is identical to cell `$auto$simplemap.cc:37:simplemap_not$625'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [4] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [4]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$463' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$462' is identical to cell `$auto$simplemap.cc:37:simplemap_not$624'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [3] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [3]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$462' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$461' is identical to cell `$auto$simplemap.cc:37:simplemap_not$623'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [2] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [2]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$461' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$460' is identical to cell `$auto$simplemap.cc:37:simplemap_not$622'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [1] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [1]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$460' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$459' is identical to cell `$auto$simplemap.cc:37:simplemap_not$621'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [0]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$459' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$326' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1086'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [14] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$388_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$326' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$324' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1085'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [12] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$385_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$324' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$322' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1084'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [10] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$382_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$322' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$320' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1083'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [8] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$379_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$320' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$318' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1082'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [6] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$376_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$318' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$316' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1081'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [4] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$373_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$316' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$314' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1080'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [2] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:222$370_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$314' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$312' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$1065'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$and$<techmap.v>:260$102_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$24.lcu.$and$<techmap.v>:221$365_Y
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$312' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$279' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$492'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$xor$<techmap.v>:262$103_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$24.$xor$<techmap.v>:263$109_Y [1]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$279' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$243' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$256'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$240 [1] = $auto$simplemap.cc:250:simplemap_eqne$253 [1]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$243' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$242' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$268'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$240 [0] = $auto$simplemap.cc:250:simplemap_eqne$266 [0]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$242' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$216' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$268'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$214 [0] = $auto$simplemap.cc:250:simplemap_eqne$266 [0]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$216' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$218' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$231'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$214 [2] = $auto$simplemap.cc:250:simplemap_eqne$227 [2]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$218' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$204' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$256'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$201 [1] = $auto$simplemap.cc:250:simplemap_eqne$253 [1]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$204' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$205' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$231'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$201 [2] = $auto$simplemap.cc:250:simplemap_eqne$227 [2]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$205' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$604' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$685'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$30.$and$<techmap.v>:260$102_Y [15] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [15]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$604' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$571' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$652'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$30.$xor$<techmap.v>:262$103_Y [15] = $techmap$auto$alumacc.cc:470:replace_alu$33.$xor$<techmap.v>:262$174_Y [15]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$571' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$161' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$256'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$158 [1] = $auto$simplemap.cc:250:simplemap_eqne$253 [1]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$161' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$160' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$268'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$158 [0] = $auto$simplemap.cc:250:simplemap_eqne$266 [0]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$160' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$162' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$231'.
+    Redirecting output \Y: $auto$simplemap.cc:250:simplemap_eqne$158 [2] = $auto$simplemap.cc:250:simplemap_eqne$227 [2]
+    Removing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$162' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$156' is identical to cell `$auto$simplemap.cc:37:simplemap_not$635'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [14] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [14]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$156' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$154' is identical to cell `$auto$simplemap.cc:37:simplemap_not$633'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [12] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [12]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$154' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$153' is identical to cell `$auto$simplemap.cc:37:simplemap_not$632'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [11] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [11]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$153' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$152' is identical to cell `$auto$simplemap.cc:37:simplemap_not$631'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [10] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [10]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$152' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$151' is identical to cell `$auto$simplemap.cc:37:simplemap_not$630'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [9] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [9]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$151' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$150' is identical to cell `$auto$simplemap.cc:37:simplemap_not$629'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [8] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [8]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$150' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$149' is identical to cell `$auto$simplemap.cc:37:simplemap_not$628'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [7] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [7]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$149' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$148' is identical to cell `$auto$simplemap.cc:37:simplemap_not$627'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [6] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [6]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$148' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$147' is identical to cell `$auto$simplemap.cc:37:simplemap_not$626'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [5] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [5]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$147' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$146' is identical to cell `$auto$simplemap.cc:37:simplemap_not$625'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [4] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [4]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$146' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$145' is identical to cell `$auto$simplemap.cc:37:simplemap_not$624'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [3] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [3]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$145' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$144' is identical to cell `$auto$simplemap.cc:37:simplemap_not$623'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [2] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [2]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$144' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$143' is identical to cell `$auto$simplemap.cc:37:simplemap_not$622'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [1] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [1]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$143' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$142' is identical to cell `$auto$simplemap.cc:37:simplemap_not$621'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [0]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$142' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$124' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$684'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [14] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [14]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$124' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$123' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$683'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [13] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [13]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$123' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$122' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$682'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [12] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [12]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$122' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$121' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$681'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [11] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [11]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$121' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$120' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$680'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [10] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [10]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$120' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$119' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$679'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [9] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [9]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$119' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$118' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$678'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [8] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [8]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$118' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$117' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$677'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [7] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [7]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$117' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$116' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$676'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [6] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [6]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$116' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$115' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$675'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [5] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [5]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$115' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$114' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$674'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [4] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [4]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$114' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$113' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$673'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [3] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [3]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$113' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$112' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$672'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [2] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [2]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$112' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$111' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$671'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [1] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [1]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$111' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$110' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$670'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [0] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [0]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$110' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$554' is identical to cell `$auto$simplemap.cc:37:simplemap_not$635'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [14] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [14]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$554' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$555' is identical to cell `$auto$simplemap.cc:37:simplemap_not$636'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [15] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [15]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$555' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$473' is identical to cell `$auto$simplemap.cc:37:simplemap_not$635'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [14] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [14]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$473' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$474' is identical to cell `$auto$simplemap.cc:37:simplemap_not$636'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [15] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [15]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$474' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:85:simplemap_bitop$125' is identical to cell `$auto$simplemap.cc:85:simplemap_bitop$685'.
+    Redirecting output \Y: $and$CA3_E1.sv:12$11_Y [15] = $techmap$auto$alumacc.cc:470:replace_alu$33.$and$<techmap.v>:260$173_Y [15]
+    Removing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$125' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$553' is identical to cell `$auto$simplemap.cc:37:simplemap_not$155'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$24.$not$<techmap.v>:258$105_Y [13] = $not$CA3_E1.sv:14$13_Y [13]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$553' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$472' is identical to cell `$auto$simplemap.cc:37:simplemap_not$155'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$27.$not$<techmap.v>:258$100_Y [13] = $not$CA3_E1.sv:14$13_Y [13]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$472' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$634' is identical to cell `$auto$simplemap.cc:37:simplemap_not$155'.
+    Redirecting output \Y: $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [13] = $not$CA3_E1.sv:14$13_Y [13]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$634' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:37:simplemap_not$157' is identical to cell `$auto$simplemap.cc:37:simplemap_not$636'.
+    Redirecting output \Y: $not$CA3_E1.sv:14$13_Y [15] = $techmap$auto$alumacc.cc:470:replace_alu$30.$not$<techmap.v>:258$100_Y [15]
+    Removing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$157' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:136:simplemap_reduce$222' is identical to cell `$auto$simplemap.cc:136:simplemap_reduce$274'.
+    Redirecting output \Y: $auto$simplemap.cc:127:simplemap_reduce$221 = $auto$simplemap.cc:127:simplemap_reduce$273
+    Removing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$222' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:136:simplemap_reduce$209' is identical to cell `$auto$simplemap.cc:136:simplemap_reduce$261'.
+    Redirecting output \Y: $auto$simplemap.cc:127:simplemap_reduce$208 = $auto$simplemap.cc:127:simplemap_reduce$260
+    Removing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$209' from module `\ALU1'.
+  Cell `$auto$simplemap.cc:136:simplemap_reduce$166' is identical to cell `$auto$simplemap.cc:136:simplemap_reduce$248'.
+    Redirecting output \Y: $auto$simplemap.cc:127:simplemap_reduce$165 = $auto$simplemap.cc:127:simplemap_reduce$247
+    Removing $_OR_ cell `$auto$simplemap.cc:136:simplemap_reduce$166' from module `\ALU1'.
+Removed a total of 87 cells.
+
+2.19.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.19.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$327'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$703'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$702'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$704'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$705'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$706'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$707'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$708'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$709'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$710'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$711'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$712'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$713'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$714'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$715'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$716'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$717'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1007'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1011'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1013'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1014'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1021'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1024'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1025'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1045'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1049'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1051'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1052'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1079'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1089'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1090'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1137'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1141'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1143'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1144'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1151'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1154'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1155'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1175'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1179'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1181'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1182'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1202'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1206'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1208'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1209'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1216'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1219'.
+  removing unused `$_AND_' cell `$auto$simplemap.cc:85:simplemap_bitop$1220'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1240'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1244'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1246'.
+  removing unused `$_OR_' cell `$auto$simplemap.cc:85:simplemap_bitop$1247'.
+
+2.19.5. Finished fast OPT passes.
+
+2.20. Executing ABC pass (technology mapping using ABC).
+
+2.20.1. Extracting gate netlist of module `\ALU1' to `<abc-temp-dir>/input.blif'..
+Extracted 594 gates and 631 wires to a netlist network with 36 inputs and 17 outputs.
+
+2.20.1.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       61
+ABC RESULTS:              AOI3 cells:       57
+ABC RESULTS:              AOI4 cells:        2
+ABC RESULTS:               MUX cells:       16
+ABC RESULTS:              NAND cells:       20
+ABC RESULTS:               NOR cells:       60
+ABC RESULTS:               NOT cells:       64
+ABC RESULTS:              OAI3 cells:       52
+ABC RESULTS:              OAI4 cells:       17
+ABC RESULTS:                OR cells:       22
+ABC RESULTS:              XNOR cells:       82
+ABC RESULTS:               XOR cells:       23
+ABC RESULTS:        internal signals:      578
+ABC RESULTS:           input signals:       36
+ABC RESULTS:          output signals:       17
+Removing temp directory.
+
+2.21. Executing OPT pass (performing simple optimizations).
+
+2.21.1. Executing OPT_EXPR pass (perform const folding).
+
+2.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU1'.
+Removed a total of 0 cells.
+
+2.21.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU1..
+
+2.21.5. Finished fast OPT passes.
+
+2.22. Executing HIERARCHY pass (managing design hierarchy).
+
+2.22.1. Analyzing design hierarchy..
+Top module:  \ALU1
+
+2.22.2. Analyzing design hierarchy..
+Top module:  \ALU1
+Removed 0 unused modules.
+
+2.23. Printing statistics.
+
+=== ALU1 ===
+
+   Number of wires:                466
+   Number of wire bits:            513
+   Number of public wires:           7
+   Number of public wire bits:      54
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                476
+     $_AND_                         61
+     $_AOI3_                        57
+     $_AOI4_                         2
+     $_MUX_                         16
+     $_NAND_                        20
+     $_NOR_                         60
+     $_NOT_                         64
+     $_OAI3_                        52
+     $_OAI4_                        17
+     $_OR_                          22
+     $_XNOR_                        82
+     $_XOR_                         23
+
+2.24. Executing CHECK pass (checking for obvious problems).
+checking module ALU1..
+found and reported 0 problems.
+
+yosys> dfflibmap -liberty mycells.lib
+
+3. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell DFF (noninv, pins=3, area=18.00) is a direct match for cell type $_DFF_P_.
+  create mapping for $_DFF_N_ from mapping for $_DFF_P_.
+  final dff cell mappings:
+    DFF _DFF_N_ (.C(~C), .D( D), .Q( Q));
+    DFF _DFF_P_ (.C( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    unmapped dff cell: $_DFF_PN0_
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+Mapping DFF cells in module `\ALU1':
+
+yosys> abc -liberty mycells.lib
+
+4. Executing ABC pass (technology mapping using ABC).
+
+4.1. Extracting gate netlist of module `\ALU1' to `<abc-temp-dir>/input.blif'..
+Extracted 476 gates and 512 wires to a netlist network with 36 inputs and 17 outputs.
+
+4.1.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.1.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:      223
+ABC RESULTS:               NOR cells:      430
+ABC RESULTS:               NOT cells:      162
+ABC RESULTS:        internal signals:      459
+ABC RESULTS:           input signals:       36
+ABC RESULTS:          output signals:       17
+Removing temp directory.
+
+yosys> write_verilog -noattr qwe.sv
+
+5. Executing Verilog backend.
+Dumping module `\ALU1'.
+
+yosys>

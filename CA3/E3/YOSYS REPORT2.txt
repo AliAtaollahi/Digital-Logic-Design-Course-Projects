@@ -1,0 +1,1873 @@
+
+ /----------------------------------------------------------------------------\
+ |                                                                            |
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |                                                                            |
+ |  Copyright (C) 2012 - 2016  Clifford Wolf <clifford@clifford.at>           |
+ |                                                                            |
+ |  Permission to use, copy, modify, and/or distribute this software for any  |
+ |  purpose with or without fee is hereby granted, provided that the above    |
+ |  copyright notice and this permission notice appear in all copies.         |
+ |                                                                            |
+ |  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES  |
+ |  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF          |
+ |  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR   |
+ |  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES    |
+ |  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN     |
+ |  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF   |
+ |  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.            |
+ |                                                                            |
+ \----------------------------------------------------------------------------/
+
+ Yosys 0.7 (git sha1 61f6811, i686-w64-mingw32.static-gcc 4.9.3 -Os)
+
+
+yosys> read_verilog -sv CA3_E2.sv
+1. Executing Verilog-2005 frontend.
+Parsing SystemVerilog input from `CA3_E2.sv' to AST representation.
+Generating RTLIL representation for module `\ALU_STR1'.
+Warning: Identifier `\q' is implicitly declared at CA3_E2.sv:23.
+Generating RTLIL representation for module `\shifter'.
+Generating RTLIL representation for module `\adder16bits'.
+Generating RTLIL representation for module `\mux16bit'.
+Generating RTLIL representation for module `\mux2to1'.
+Generating RTLIL representation for module `\and16'.
+Generating RTLIL representation for module `\or16'.
+Generating RTLIL representation for module `\allor'.
+Generating RTLIL representation for module `\allinv'.
+Successfully finished Verilog frontend.
+
+yosys> synth -auto-top
+
+2. Executing SYNTH pass.
+
+2.1. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1.1. Finding top of design hierarchy..
+root of   0 design levels: allinv
+root of   0 design levels: allor
+root of   0 design levels: or16
+root of   0 design levels: and16
+root of   0 design levels: mux2to1
+root of   0 design levels: mux16bit
+root of   0 design levels: adder16bits
+root of   0 design levels: shifter
+root of   1 design levels: ALU_STR1
+Automatically selected ALU_STR1 as design top module.
+
+2.1.2. Analyzing design hierarchy..
+Top module:  \ALU_STR1
+Used module:     \mux2to1
+Used module:     \shifter
+Used module:     \mux16bit
+Used module:     \allinv
+Used module:     \or16
+Used module:     \and16
+Used module:     \adder16bits
+Used module:     \allor
+
+2.1.3. Analyzing design hierarchy..
+Top module:  \ALU_STR1
+Used module:     \mux2to1
+Used module:     \shifter
+Used module:     \mux16bit
+Used module:     \allinv
+Used module:     \or16
+Used module:     \and16
+Used module:     \adder16bits
+Used module:     \allor
+Removed 0 unused modules.
+Mapping positional arguments of cell ALU_STR1.mux3 (mux2to1).
+Mapping positional arguments of cell ALU_STR1.sh2 (shifter).
+Mapping positional arguments of cell ALU_STR1.sh1 (shifter).
+Mapping positional arguments of cell ALU_STR1.mux2 (mux16bit).
+Mapping positional arguments of cell ALU_STR1.a4 (allinv).
+Mapping positional arguments of cell ALU_STR1.a3 (or16).
+Mapping positional arguments of cell ALU_STR1.a2 (and16).
+Mapping positional arguments of cell ALU_STR1.adder (adder16bits).
+Mapping positional arguments of cell ALU_STR1.a1 (allor).
+Mapping positional arguments of cell ALU_STR1.mux1 (mux16bit).
+
+2.2. Executing PROC pass (convert processes to netlists).
+
+2.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+2.2.3. Executing PROC_INIT pass (extract init attributes).
+
+2.2.4. Executing PROC_ARST pass (detect async resets in processes).
+
+2.2.5. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\ALU_STR1.$proc$CA3_E2.sv:7$9'.
+     1/1: $0\zero[0:0]
+Creating decoders for process `\ALU_STR1.$proc$CA3_E2.sv:6$8'.
+     1/1: $0\one[15:0]
+
+2.2.6. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\ALU_STR1.\zero' from process `\ALU_STR1.$proc$CA3_E2.sv:7$9'.
+No latch inferred for signal `\ALU_STR1.\one' from process `\ALU_STR1.$proc$CA3_E2.sv:6$8'.
+
+2.2.7. Executing PROC_DFF pass (convert process syncs to FFs).
+
+2.2.8. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `ALU_STR1.$proc$CA3_E2.sv:7$9'.
+Removing empty process `ALU_STR1.$proc$CA3_E2.sv:6$8'.
+Cleaned up 0 empty switches.
+
+2.3. Executing OPT_EXPR pass (perform const folding).
+Replacing $eq cell `$eq$CA3_E2.sv:39$21' in module `mux2to1' with inverter.
+Replacing $eq cell `$eq$CA3_E2.sv:40$22' (1) in module `\mux2to1' with constant driver `$eq$CA3_E2.sv:40$22_Y = \select'.
+Optimizing away select inverter for $mux cell `$ternary$CA3_E2.sv:40$24' in module `mux2to1'.
+Replacing $eq cell `$eq$CA3_E2.sv:33$13' in module `mux16bit' with $logic_not.
+Replacing $sshr cell `$sshr$CA3_E2.sv:27$10' (B=1, SHR=1) in module `shifter' with fixed wiring: { \in [15] \in [15:1] }
+
+2.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux2to1..
+  removing unused `$not' cell `$eq$CA3_E2.sv:39$21'.
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \shifter..
+Finding unused cells or wires in module \ALU_STR1..
+  removing unused non-port wire \zero.
+  removing unused non-port wire \one.
+  removed 2 unused temporary wires.
+
+2.5. Executing CHECK pass (checking for obvious problems).
+checking module ALU_STR1..
+checking module adder16bits..
+checking module allinv..
+checking module allor..
+checking module and16..
+checking module mux16bit..
+checking module mux2to1..
+checking module or16..
+checking module shifter..
+found and reported 0 problems.
+
+2.6. Executing OPT pass (performing simple optimizations).
+
+2.6.1. Executing OPT_EXPR pass (perform const folding).
+
+2.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+  Cell `$or$CA3_E2.sv:8$1' is identical to cell `$or$CA3_E2.sv:23$6'.
+    Redirecting output \Y: \o = \q
+    Removing $or cell `$or$CA3_E2.sv:8$1' from module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 1 cells.
+
+2.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU_STR1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \adder16bits..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allinv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allor..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \and16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \mux16bit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:36$20 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \mux2to1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:40$24 (pure)
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $ternary$CA3_E2.sv:40$23.
+Running muxtree optimizer on module \or16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \shifter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 1 multiplexer ports.
+
+2.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU_STR1.
+  Optimizing cells in module \adder16bits.
+  Optimizing cells in module \allinv.
+  Optimizing cells in module \allor.
+    New input vector for $reduce_or cell $reduce_or$CA3_E2.sv:49$27: { \a [0] \a [1] \a [2] \a [3] \a [4] \a [5] \a [6] \a [7] \a [8] \a [9] \a [10] \a [11] \a [12] \a [13] \a [14] \a [15] }
+  Optimizing cells in module \allor.
+  Optimizing cells in module \and16.
+  Optimizing cells in module \mux16bit.
+  Optimizing cells in module \mux2to1.
+  Optimizing cells in module \or16.
+  Optimizing cells in module \shifter.
+Performed a total of 1 changes.
+
+2.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.6.6. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.6.8. Executing OPT_EXPR pass (perform const folding).
+
+2.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU_STR1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \adder16bits..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allinv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allor..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \and16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \mux16bit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:36$20 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \mux2to1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:40$24 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \or16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \shifter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+2.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU_STR1.
+  Optimizing cells in module \adder16bits.
+  Optimizing cells in module \allinv.
+  Optimizing cells in module \allor.
+  Optimizing cells in module \and16.
+  Optimizing cells in module \mux16bit.
+  Optimizing cells in module \mux2to1.
+  Optimizing cells in module \or16.
+  Optimizing cells in module \shifter.
+Performed a total of 0 changes.
+
+2.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.6.13. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.6.15. Executing OPT_EXPR pass (perform const folding).
+
+2.6.16. Finished OPT passes. (There is nothing left to do.)
+
+2.7. Executing WREDUCE pass (reducing word size of cells).
+Removed top 1 bits (of 2) from port B of cell mux16bit.$eq$CA3_E2.sv:34$14 ($eq).
+Removed cell mux16bit.$ternary$CA3_E2.sv:36$17 ($mux).
+
+2.8. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module ALU_STR1:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module adder16bits:
+  creating $macc model for $add$CA3_E2.sv:30$11 ($add).
+  creating $macc model for $add$CA3_E2.sv:30$12 ($add).
+  merging $macc model for $add$CA3_E2.sv:30$11 into $add$CA3_E2.sv:30$12.
+  creating $alu model for $macc $add$CA3_E2.sv:30$12.
+  creating $alu cell for $add$CA3_E2.sv:30$12: $auto$alumacc.cc:470:replace_alu$29
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module allinv:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module allor:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module and16:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module mux16bit:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module mux2to1:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module or16:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module shifter:
+  created 0 $alu and 0 $macc cells.
+
+2.9. Executing SHARE pass (SAT-based resource sharing).
+
+2.10. Executing OPT pass (performing simple optimizations).
+
+2.10.1. Executing OPT_EXPR pass (perform const folding).
+
+2.10.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.10.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU_STR1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \adder16bits..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allinv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allor..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \and16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \mux16bit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:36$20 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \mux2to1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:40$24 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \or16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \shifter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+2.10.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU_STR1.
+  Optimizing cells in module \adder16bits.
+  Optimizing cells in module \allinv.
+  Optimizing cells in module \allor.
+  Optimizing cells in module \and16.
+  Optimizing cells in module \mux16bit.
+  Optimizing cells in module \mux2to1.
+  Optimizing cells in module \or16.
+  Optimizing cells in module \shifter.
+Performed a total of 0 changes.
+
+2.10.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.10.6. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.10.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+  removing unused `$add' cell `$add$CA3_E2.sv:30$11'.
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+  removing unused `$eq' cell `$eq$CA3_E2.sv:36$16'.
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.10.8. Executing OPT_EXPR pass (perform const folding).
+
+2.10.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.10.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU_STR1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \adder16bits..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allinv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allor..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \and16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \mux16bit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:36$20 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \mux2to1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:40$24 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \or16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \shifter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+2.10.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU_STR1.
+  Optimizing cells in module \adder16bits.
+  Optimizing cells in module \allinv.
+  Optimizing cells in module \allor.
+  Optimizing cells in module \and16.
+  Optimizing cells in module \mux16bit.
+  Optimizing cells in module \mux2to1.
+  Optimizing cells in module \or16.
+  Optimizing cells in module \shifter.
+Performed a total of 0 changes.
+
+2.10.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.10.13. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.10.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.10.15. Executing OPT_EXPR pass (perform const folding).
+
+2.10.16. Finished OPT passes. (There is nothing left to do.)
+
+2.11. Executing FSM pass (extract and optimize FSM).
+
+2.11.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+2.11.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+2.11.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+2.11.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.11.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+2.11.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+2.11.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+2.11.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+2.12. Executing OPT pass (performing simple optimizations).
+
+2.12.1. Executing OPT_EXPR pass (perform const folding).
+
+2.12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.12.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.12.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.12.5. Finished fast OPT passes.
+
+2.13. Executing MEMORY pass.
+
+2.13.1. Executing MEMORY_DFF pass (merging $dff cells to $memrd and $memwr).
+
+2.13.2. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.13.3. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+2.13.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.13.5. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+2.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.15. Executing OPT pass (performing simple optimizations).
+
+2.15.1. Executing OPT_EXPR pass (perform const folding).
+
+2.15.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.15.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.15.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.15.5. Finished fast OPT passes.
+
+2.16. Executing MEMORY_MAP pass (converting $mem cells to logic and flip-flops).
+
+2.17. Executing OPT pass (performing simple optimizations).
+
+2.17.1. Executing OPT_EXPR pass (perform const folding).
+
+2.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.17.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \ALU_STR1..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \adder16bits..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allinv..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \allor..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \and16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \mux16bit..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:36$20 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \mux2to1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+    Root of a mux tree: $ternary$CA3_E2.sv:40$24 (pure)
+  Analyzing evaluation results.
+Running muxtree optimizer on module \or16..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \shifter..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+2.17.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \ALU_STR1.
+  Optimizing cells in module \adder16bits.
+  Optimizing cells in module \allinv.
+  Optimizing cells in module \allor.
+  Optimizing cells in module \and16.
+  Optimizing cells in module \mux16bit.
+  Optimizing cells in module \mux2to1.
+  Optimizing cells in module \or16.
+  Optimizing cells in module \shifter.
+Performed a total of 0 changes.
+
+2.17.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.17.6. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.17.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.17.8. Executing OPT_EXPR pass (perform const folding).
+
+2.17.9. Finished OPT passes. (There is nothing left to do.)
+
+2.18. Executing TECHMAP pass (map to technology primitives).
+
+2.18.1. Executing Verilog-2005 frontend.
+Parsing Verilog input from `<techmap.v>' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+Mapping ALU_STR1.$not$CA3_E2.sv:9$2 ($not) with simplemap.
+Mapping ALU_STR1.$and$CA3_E2.sv:10$3 ($and) with simplemap.
+Mapping ALU_STR1.$and$CA3_E2.sv:11$4 ($and) with simplemap.
+Mapping ALU_STR1.$not$CA3_E2.sv:14$5 ($not) with simplemap.
+Mapping ALU_STR1.$or$CA3_E2.sv:23$6 ($or) with simplemap.
+Mapping ALU_STR1.$not$CA3_E2.sv:24$7 ($not) with simplemap.
+Mapping mux16bit.$eq$CA3_E2.sv:33$13 ($logic_not) with simplemap.
+Mapping mux16bit.$eq$CA3_E2.sv:34$14 ($eq) with simplemap.
+Mapping mux16bit.$eq$CA3_E2.sv:35$15 ($eq) with simplemap.
+Mapping mux16bit.$ternary$CA3_E2.sv:36$18 ($mux) with simplemap.
+Mapping mux16bit.$ternary$CA3_E2.sv:36$19 ($mux) with simplemap.
+Mapping mux16bit.$ternary$CA3_E2.sv:36$20 ($mux) with simplemap.
+Mapping allor.$reduce_or$CA3_E2.sv:49$27 ($reduce_or) with simplemap.
+
+2.18.2. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_alu'.
+Parameter \A_SIGNED = 0
+Parameter \B_SIGNED = 0
+Parameter \A_WIDTH = 16
+Parameter \B_WIDTH = 16
+Parameter \Y_WIDTH = 17
+Generating RTLIL representation for module `$paramod\_90_alu\A_SIGNED=0\B_SIGNED=0\A_WIDTH=16\B_WIDTH=16\Y_WIDTH=17'.
+
+2.18.3. Continuing TECHMAP pass.
+Mapping adder16bits.$auto$alumacc.cc:470:replace_alu$29 using $paramod\_90_alu\A_SIGNED=0\B_SIGNED=0\A_WIDTH=16\B_WIDTH=16\Y_WIDTH=17.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.$xor$<techmap.v>:262$175 ($xor) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.$xor$<techmap.v>:263$176 ($xor) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.$and$<techmap.v>:260$174 ($and) with simplemap.
+
+2.18.4. Executing AST frontend in derive mode using pre-parsed AST for module `\_90_lcu'.
+Parameter \WIDTH = 17
+Generating RTLIL representation for module `$paramod\_90_lcu\WIDTH=17'.
+
+2.18.5. Executing PROC pass (convert processes to netlists).
+
+2.18.5.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+2.18.5.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+2.18.5.3. Executing PROC_INIT pass (extract init attributes).
+
+2.18.5.4. Executing PROC_ARST pass (detect async resets in processes).
+
+2.18.5.5. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod\_90_lcu\WIDTH=17.$proc$<techmap.v>:207$266'.
+     1/34: $0\p[16:0] [16]
+     2/34: $0\g[16:0] [16]
+     3/34: $0\p[16:0] [14]
+     4/34: $0\g[16:0] [14]
+     5/34: $0\p[16:0] [12]
+     6/34: $0\g[16:0] [12]
+     7/34: $0\p[16:0] [10]
+     8/34: $0\g[16:0] [10]
+     9/34: $0\p[16:0] [8]
+    10/34: $0\g[16:0] [8]
+    11/34: $0\p[16:0] [6]
+    12/34: $0\g[16:0] [6]
+    13/34: $0\p[16:0] [4]
+    14/34: $0\g[16:0] [4]
+    15/34: $0\p[16:0] [2]
+    16/34: $0\g[16:0] [2]
+    17/34: $0\p[16:0] [13]
+    18/34: $0\g[16:0] [13]
+    19/34: $0\p[16:0] [9]
+    20/34: $0\g[16:0] [9]
+    21/34: $0\p[16:0] [5]
+    22/34: $0\g[16:0] [5]
+    23/34: $0\p[16:0] [11]
+    24/34: $0\g[16:0] [11]
+    25/34: $0\p[16:0] [15]
+    26/34: $0\g[16:0] [15]
+    27/34: $0\p[16:0] [7]
+    28/34: $0\g[16:0] [7]
+    29/34: $0\p[16:0] [3]
+    30/34: $0\g[16:0] [3]
+    31/34: $0\p[16:0] [1]
+    32/34: $0\g[16:0] [1]
+    33/34: $0\g[16:0] [0]
+    34/34: $0\p[16:0] [0]
+
+2.18.5.6. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\_90_lcu\WIDTH=17.\p' from process `$paramod\_90_lcu\WIDTH=17.$proc$<techmap.v>:207$266'.
+No latch inferred for signal `$paramod\_90_lcu\WIDTH=17.\g' from process `$paramod\_90_lcu\WIDTH=17.$proc$<techmap.v>:207$266'.
+
+2.18.5.7. Executing PROC_DFF pass (convert process syncs to FFs).
+
+2.18.5.8. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Removing empty process `$paramod\_90_lcu\WIDTH=17.$proc$<techmap.v>:207$266'.
+Cleaned up 0 empty switches.
+
+2.18.6. Executing OPT pass (performing simple optimizations).
+
+2.18.6.1. Executing OPT_EXPR pass (perform const folding).
+
+2.18.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod\_90_lcu\WIDTH=17'.
+Removed a total of 0 cells.
+
+2.18.6.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.18.6.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod\_90_lcu\WIDTH=17..
+  removing unused `$and' cell `$and$<techmap.v>:222$271'.
+  removing unused `$and' cell `$and$<techmap.v>:222$295'.
+  removing unused `$and' cell `$and$<techmap.v>:222$307'.
+  removing unused `$and' cell `$and$<techmap.v>:222$313'.
+  removing unused `$and' cell `$and$<techmap.v>:230$316'.
+  removing unused `$and' cell `$and$<techmap.v>:230$319'.
+  removing unused `$and' cell `$and$<techmap.v>:230$322'.
+  removing unused `$and' cell `$and$<techmap.v>:230$325'.
+  removing unused `$and' cell `$and$<techmap.v>:230$328'.
+  removing unused `$and' cell `$and$<techmap.v>:230$331'.
+  removing unused `$and' cell `$and$<techmap.v>:230$334'.
+  removing unused `$and' cell `$and$<techmap.v>:230$337'.
+  removing unused `$and' cell `$and$<techmap.v>:230$340'.
+  removing unused `$and' cell `$and$<techmap.v>:230$343'.
+  removing unused `$and' cell `$and$<techmap.v>:230$346'.
+  removing unused `$and' cell `$and$<techmap.v>:230$349'.
+  removing unused non-port wire \j.
+  removing unused non-port wire \i.
+  removed 2 unused temporary wires.
+
+2.18.6.5. Finished fast OPT passes.
+
+2.18.7. Continuing TECHMAP pass.
+Mapping adder16bits.$auto$alumacc.cc:470:replace_alu$29.lcu using $paramod\_90_lcu\WIDTH=17.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173 ($mux) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.$not$<techmap.v>:258$172 ($not) with simplemap.
+Mapping adder16bits.$auto$alumacc.cc:470:replace_alu$29.B_conv ($pos) with simplemap.
+Mapping adder16bits.$auto$alumacc.cc:470:replace_alu$29.A_conv ($pos) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$284 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$281 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$278 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$275 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$272 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$269 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:212$267 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$287 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$290 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$293 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$296 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$299 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$302 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$305 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$308 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:221$311 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$274 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$277 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$280 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$283 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$286 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$289 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$292 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$298 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$301 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$304 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:222$310 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$314 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$317 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$320 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$323 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$326 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$329 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$332 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$335 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$338 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$341 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$344 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$347 ($and) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:212$268 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$270 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$273 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$276 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$279 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$282 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$285 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$288 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$291 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$294 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$297 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$300 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$303 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$306 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$309 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:221$312 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$315 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$318 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$321 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$324 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$327 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$330 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$333 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$336 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$339 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$342 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$345 ($or) with simplemap.
+Mapping adder16bits.$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$or$<techmap.v>:229$348 ($or) with simplemap.
+Mapping and16.$and$CA3_E2.sv:43$25 ($and) with simplemap.
+Mapping or16.$or$CA3_E2.sv:46$26 ($or) with simplemap.
+Mapping allinv.$not$CA3_E2.sv:52$28 ($not) with simplemap.
+Mapping mux2to1.$ternary$CA3_E2.sv:40$24 ($mux) with simplemap.
+No more expansions possible.
+
+2.19. Executing OPT pass (performing simple optimizations).
+
+2.19.1. Executing OPT_EXPR pass (perform const folding).
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$351' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [1] = \in2 [1]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$350' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [0] = \in2 [0]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$352' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [2] = \in2 [2]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$353' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [3] = \in2 [3]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$354' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [4] = \in2 [4]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$355' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [5] = \in2 [5]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$356' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [6] = \in2 [6]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$357' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [7] = \in2 [7]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$358' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [8] = \in2 [8]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$359' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [9] = \in2 [9]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$360' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [10] = \in2 [10]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$361' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [11] = \in2 [11]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$362' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [12] = \in2 [12]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$363' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [13] = \in2 [13]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$364' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [14] = \in2 [14]'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$365' (??0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [15] = \in2 [15]'.
+Replacing $_NOT_ cell `$auto$simplemap.cc:37:simplemap_not$383' (0) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$not$<techmap.v>:258$172_Y [16] = 1'1'.
+Replacing $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$366' (010) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$ternary$<techmap.v>:258$173_Y [16] = 1'0'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$193' (00) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$xor$<techmap.v>:262$175_Y [16] = 1'0'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$210' (0?) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$xor$<techmap.v>:263$176_Y [16] = $auto$alumacc.cc:484:replace_alu$31 [15]'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$228' (const_and) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$and$<techmap.v>:260$174_Y [16] = 1'0'.
+Replacing $_AND_ cell `$auto$simplemap.cc:85:simplemap_bitop$422' (const_and) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.lcu.$and$<techmap.v>:229$347_Y = 1'0'.
+Replacing $_OR_ cell `$auto$simplemap.cc:85:simplemap_bitop$450' (00) in module `\adder16bits' with constant driver `$auto$alumacc.cc:484:replace_alu$31 [16] = 1'0'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$211' (00) in module `\adder16bits' with constant driver `$techmap$auto$alumacc.cc:470:replace_alu$29.$xor$<techmap.v>:263$176_Y [17] = 1'0'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$88' (?0) in module `\mux16bit' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$85 [1] = \select [1]'.
+Replacing $_XOR_ cell `$auto$simplemap.cc:85:simplemap_bitop$97' (?0) in module `\mux16bit' with constant driver `$auto$simplemap.cc:250:simplemap_eqne$95 [0] = \select [0]'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$106' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$105' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$107' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$108' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$109' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$110' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$111' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$112' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$113' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$114' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$115' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$116' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$117' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$118' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$119' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$120' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$122' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$121' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$123' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$124' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$125' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$126' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$127' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$128' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$129' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$130' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$131' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$132' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$133' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$134' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$135' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$136' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$138' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$137' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$139' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$140' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$141' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$142' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$143' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$144' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$145' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$146' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$147' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$148' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$149' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$150' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$151' in module `mux16bit'.
+Optimizing away select inverter for $_MUX_ cell `$auto$simplemap.cc:277:simplemap_mux$152' in module `mux16bit'.
+
+2.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.19.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.19.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+Finding unused cells or wires in module \adder16bits..
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$368'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$367'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$369'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$370'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$371'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$372'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$373'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$374'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$375'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$376'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$377'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$378'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$379'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$380'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$381'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:37:simplemap_not$382'.
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:206:simplemap_lognot$84'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:206:simplemap_lognot$94'.
+  removing unused `$_NOT_' cell `$auto$simplemap.cc:206:simplemap_lognot$104'.
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.19.5. Finished fast OPT passes.
+
+2.20. Executing ABC pass (technology mapping using ABC).
+
+2.20.1. Extracting gate netlist of module `\ALU_STR1' to `<abc-temp-dir>/input.blif'..
+Extracted 6 gates and 10 wires to a netlist network with 4 inputs and 4 outputs.
+
+2.20.1.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.1.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:               NOT cells:        2
+ABC RESULTS:        internal signals:        2
+ABC RESULTS:           input signals:        4
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+2.20.2. Extracting gate netlist of module `\adder16bits' to `<abc-temp-dir>/input.blif'..
+Extracted 113 gates and 146 wires to a netlist network with 33 inputs and 17 outputs.
+
+2.20.2.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       15
+ABC RESULTS:              AOI3 cells:       13
+ABC RESULTS:              NAND cells:       16
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:               NOT cells:        5
+ABC RESULTS:              OAI3 cells:       10
+ABC RESULTS:                OR cells:        4
+ABC RESULTS:              XNOR cells:       16
+ABC RESULTS:               XOR cells:       17
+ABC RESULTS:        internal signals:       96
+ABC RESULTS:           input signals:       33
+ABC RESULTS:          output signals:       17
+Removing temp directory.
+
+2.20.3. Extracting gate netlist of module `\allinv' to `<abc-temp-dir>/input.blif'..
+Extracted 16 gates and 32 wires to a netlist network with 16 inputs and 16 outputs.
+
+2.20.3.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.3.2. Re-integrating ABC results.
+ABC RESULTS:               NOT cells:       16
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:       16
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+2.20.4. Extracting gate netlist of module `\allor' to `<abc-temp-dir>/input.blif'..
+Extracted 15 gates and 31 wires to a netlist network with 16 inputs and 1 outputs.
+
+2.20.4.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.4.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:        5
+ABC RESULTS:               NOR cells:       10
+ABC RESULTS:        internal signals:       14
+ABC RESULTS:           input signals:       16
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+2.20.5. Extracting gate netlist of module `\and16' to `<abc-temp-dir>/input.blif'..
+Extracted 16 gates and 48 wires to a netlist network with 32 inputs and 16 outputs.
+
+2.20.5.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.5.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       16
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:       32
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+2.20.6. Extracting gate netlist of module `\mux16bit' to `<abc-temp-dir>/input.blif'..
+Extracted 53 gates and 120 wires to a netlist network with 66 inputs and 16 outputs.
+
+2.20.6.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.6.2. Re-integrating ABC results.
+ABC RESULTS:               MUX cells:       48
+ABC RESULTS:              NAND cells:        1
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:                OR cells:        2
+ABC RESULTS:        internal signals:       38
+ABC RESULTS:           input signals:       66
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+2.20.7. Extracting gate netlist of module `\mux2to1' to `<abc-temp-dir>/input.blif'..
+Extracted 1 gates and 4 wires to a netlist network with 3 inputs and 1 outputs.
+
+2.20.7.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.7.2. Re-integrating ABC results.
+ABC RESULTS:               MUX cells:        1
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+2.20.8. Extracting gate netlist of module `\or16' to `<abc-temp-dir>/input.blif'..
+Extracted 16 gates and 48 wires to a netlist network with 32 inputs and 16 outputs.
+
+2.20.8.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: Entered genlib library with 15 gates from file "<abc-temp-dir>/stdcells.genlib".
+ABC: + retime -o
+ABC: + map
+ABC: Warning: The network was strashed and balanced before mapping.
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.20.8.2. Re-integrating ABC results.
+ABC RESULTS:                OR cells:       16
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:       32
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+2.20.9. Extracting gate netlist of module `\shifter' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+2.21. Executing OPT pass (performing simple optimizations).
+
+2.21.1. Executing OPT_EXPR pass (perform const folding).
+
+2.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\ALU_STR1'.
+Finding identical cells in module `\adder16bits'.
+Finding identical cells in module `\allinv'.
+Finding identical cells in module `\allor'.
+Finding identical cells in module `\and16'.
+Finding identical cells in module `\mux16bit'.
+Finding identical cells in module `\mux2to1'.
+Finding identical cells in module `\or16'.
+Finding identical cells in module `\shifter'.
+Removed a total of 0 cells.
+
+2.21.3. Executing OPT_RMDFF pass (remove dff with constant values).
+
+2.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \ALU_STR1..
+  removing unused non-port wire \o.
+  removing unused non-port wire \p.
+  removing unused non-port wire \q.
+  removed 3 unused temporary wires.
+Finding unused cells or wires in module \adder16bits..
+Finding unused cells or wires in module \allinv..
+Finding unused cells or wires in module \allor..
+Finding unused cells or wires in module \and16..
+Finding unused cells or wires in module \mux16bit..
+Finding unused cells or wires in module \mux2to1..
+Finding unused cells or wires in module \or16..
+Finding unused cells or wires in module \shifter..
+
+2.21.5. Finished fast OPT passes.
+
+2.22. Executing HIERARCHY pass (managing design hierarchy).
+
+2.22.1. Analyzing design hierarchy..
+Top module:  \ALU_STR1
+Used module:     \allor
+Used module:     \and16
+Used module:     \or16
+Used module:     \allinv
+Used module:     \adder16bits
+Used module:     \mux16bit
+Used module:     \mux2to1
+Used module:     \shifter
+
+2.22.2. Analyzing design hierarchy..
+Top module:  \ALU_STR1
+Used module:     \allor
+Used module:     \and16
+Used module:     \or16
+Used module:     \allinv
+Used module:     \adder16bits
+Used module:     \mux16bit
+Used module:     \mux2to1
+Used module:     \shifter
+Removed 0 unused modules.
+
+2.23. Printing statistics.
+
+=== ALU_STR1 ===
+
+   Number of wires:                 21
+   Number of wire bits:            173
+   Number of public wires:          20
+   Number of public wire bits:     172
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 15
+     $_NOR_                          3
+     $_NOT_                          2
+     adder16bits                     1
+     allinv                          1
+     allor                           1
+     and16                           1
+     mux16bit                        2
+     mux2to1                         1
+     or16                            1
+     shifter                         2
+
+=== adder16bits ===
+
+   Number of wires:                 87
+   Number of wire bits:            132
+   Number of public wires:           5
+   Number of public wire bits:      50
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 99
+     $_AND_                         15
+     $_AOI3_                        13
+     $_NAND_                        16
+     $_NOR_                          3
+     $_NOT_                          5
+     $_OAI3_                        10
+     $_OR_                           4
+     $_XNOR_                        16
+     $_XOR_                         17
+
+=== allinv ===
+
+   Number of wires:                  2
+   Number of wire bits:             32
+   Number of public wires:           2
+   Number of public wire bits:      32
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     $_NOT_                         16
+
+=== allor ===
+
+   Number of wires:                 16
+   Number of wire bits:             31
+   Number of public wires:           2
+   Number of public wire bits:      17
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 15
+     $_NAND_                         5
+     $_NOR_                         10
+
+=== and16 ===
+
+   Number of wires:                  3
+   Number of wire bits:             48
+   Number of public wires:           3
+   Number of public wire bits:      48
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     $_AND_                         16
+
+=== mux16bit ===
+
+   Number of wires:                 42
+   Number of wire bits:            118
+   Number of public wires:           6
+   Number of public wire bits:      82
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 52
+     $_MUX_                         48
+     $_NAND_                         1
+     $_NOT_                          1
+     $_OR_                           2
+
+=== mux2to1 ===
+
+   Number of wires:                  4
+   Number of wire bits:              4
+   Number of public wires:           4
+   Number of public wire bits:       4
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     $_MUX_                          1
+
+=== or16 ===
+
+   Number of wires:                  3
+   Number of wire bits:             48
+   Number of public wires:           3
+   Number of public wire bits:      48
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                 16
+     $_OR_                          16
+
+=== shifter ===
+
+   Number of wires:                  2
+   Number of wire bits:             32
+   Number of public wires:           2
+   Number of public wire bits:      32
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  0
+
+=== design hierarchy ===
+
+   ALU_STR1                          1
+     adder16bits                     1
+     allinv                          1
+     allor                           1
+     and16                           1
+     mux16bit                        2
+     mux2to1                         1
+     or16                            1
+     shifter                         2
+
+   Number of wires:                224
+   Number of wire bits:            768
+   Number of public wires:          55
+   Number of public wire bits:     599
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                272
+     $_AND_                         31
+     $_AOI3_                        13
+     $_MUX_                         97
+     $_NAND_                        23
+     $_NOR_                         16
+     $_NOT_                         25
+     $_OAI3_                        10
+     $_OR_                          24
+     $_XNOR_                        16
+     $_XOR_                         17
+
+2.24. Executing CHECK pass (checking for obvious problems).
+checking module ALU_STR1..
+checking module adder16bits..
+checking module allinv..
+checking module allor..
+checking module and16..
+checking module mux16bit..
+checking module mux2to1..
+checking module or16..
+checking module shifter..
+found and reported 0 problems.
+
+yosys> dfflibmap -liberty mycells.lib
+
+3. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell DFF (noninv, pins=3, area=18.00) is a direct match for cell type $_DFF_P_.
+  create mapping for $_DFF_N_ from mapping for $_DFF_P_.
+  final dff cell mappings:
+    DFF _DFF_N_ (.C(~C), .D( D), .Q( Q));
+    DFF _DFF_P_ (.C( C), .D( D), .Q( Q));
+    unmapped dff cell: $_DFF_NN0_
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    unmapped dff cell: $_DFF_PN0_
+    unmapped dff cell: $_DFF_PN1_
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFSR_NNN_
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    unmapped dff cell: $_DFFSR_PNN_
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+Mapping DFF cells in module `\ALU_STR1':
+Mapping DFF cells in module `\adder16bits':
+Mapping DFF cells in module `\allinv':
+Mapping DFF cells in module `\allor':
+Mapping DFF cells in module `\and16':
+Mapping DFF cells in module `\mux16bit':
+Mapping DFF cells in module `\mux2to1':
+Mapping DFF cells in module `\or16':
+Mapping DFF cells in module `\shifter':
+
+yosys> -liberty  mycells.lib
+ERROR: No such command: -liberty (type 'help' for a command overview)
+
+yosys> abs -liberty mycells.lib
+ERROR: No such command: abs (type 'help' for a command overview)
+
+yosys> abc -liberty mycells.lib
+
+4. Executing ABC pass (technology mapping using ABC).
+
+4.1. Extracting gate netlist of module `\ALU_STR1' to `<abc-temp-dir>/input.blif'..
+Extracted 5 gates and 9 wires to a netlist network with 4 inputs and 4 outputs.
+
+4.1.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.1.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:               NOT cells:        2
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        4
+ABC RESULTS:          output signals:        4
+Removing temp directory.
+
+4.2. Extracting gate netlist of module `\adder16bits' to `<abc-temp-dir>/input.blif'..
+Extracted 99 gates and 132 wires to a netlist network with 33 inputs and 17 outputs.
+
+4.2.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.2.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:       42
+ABC RESULTS:               NOR cells:      108
+ABC RESULTS:               NOT cells:       48
+ABC RESULTS:        internal signals:       82
+ABC RESULTS:           input signals:       33
+ABC RESULTS:          output signals:       17
+Removing temp directory.
+
+4.3. Extracting gate netlist of module `\allinv' to `<abc-temp-dir>/input.blif'..
+Extracted 16 gates and 32 wires to a netlist network with 16 inputs and 16 outputs.
+
+4.3.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.3.2. Re-integrating ABC results.
+ABC RESULTS:               NOT cells:       16
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:       16
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+4.4. Extracting gate netlist of module `\allor' to `<abc-temp-dir>/input.blif'..
+Extracted 15 gates and 31 wires to a netlist network with 16 inputs and 1 outputs.
+
+4.4.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.4.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:        5
+ABC RESULTS:               NOR cells:       10
+ABC RESULTS:        internal signals:       14
+ABC RESULTS:           input signals:       16
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+4.5. Extracting gate netlist of module `\and16' to `<abc-temp-dir>/input.blif'..
+Extracted 16 gates and 48 wires to a netlist network with 32 inputs and 16 outputs.
+
+4.5.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.5.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:       16
+ABC RESULTS:               NOT cells:       32
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:       32
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+4.6. Extracting gate netlist of module `\mux16bit' to `<abc-temp-dir>/input.blif'..
+Extracted 52 gates and 118 wires to a netlist network with 66 inputs and 16 outputs.
+
+4.6.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.6.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:       68
+ABC RESULTS:               NOR cells:       65
+ABC RESULTS:               NOT cells:       34
+ABC RESULTS:        internal signals:       36
+ABC RESULTS:           input signals:       66
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+4.7. Extracting gate netlist of module `\mux2to1' to `<abc-temp-dir>/input.blif'..
+Extracted 1 gates and 4 wires to a netlist network with 3 inputs and 1 outputs.
+
+4.7.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.7.2. Re-integrating ABC results.
+ABC RESULTS:               NOR cells:        3
+ABC RESULTS:               NOT cells:        1
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:        3
+ABC RESULTS:          output signals:        1
+Removing temp directory.
+
+4.8. Extracting gate netlist of module `\or16' to `<abc-temp-dir>/input.blif'..
+Extracted 16 gates and 48 wires to a netlist network with 32 inputs and 16 outputs.
+
+4.8.1. Executing ABC.
+Running ABC command: <yosys-exe-dir>/yosys-abc -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC:
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_lib -w C:\apps\lesson\yosys\src/mycells.lib
+ABC: Parsing finished successfully.  Parsing time =     0.00 sec
+ABC: Warning: Templates are not defined.
+ABC: Libery parser cannot read "time_unit".  Assuming   time_unit : "1ns".
+ABC: Libery parser cannot read "capacitive_load_unit". Assuming   capacitive_load_unit(1, pf).
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "DFF".
+ABC: Library "demo" from "C:\apps\lesson\yosys\src/mycells.lib" has 4 cells (1 skipped: 1 seq; 0 tri-state; 0 no func).  Time =     0.00 sec
+ABC: Memory =    0.00 MB. Time =     0.00 sec
+ABC: + strash
+ABC: + dc2
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + ifraig
+ABC: + retime -o
+ABC: + strash
+ABC: + dch -f
+ABC: + map
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+4.8.2. Re-integrating ABC results.
+ABC RESULTS:              NAND cells:       16
+ABC RESULTS:               NOT cells:       32
+ABC RESULTS:        internal signals:        0
+ABC RESULTS:           input signals:       32
+ABC RESULTS:          output signals:       16
+Removing temp directory.
+
+4.9. Extracting gate netlist of module `\shifter' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+yosys> write_verilog -noattr e2.sv
+
+5. Executing Verilog backend.
+Dumping module `\ALU_STR1'.
+Dumping module `\adder16bits'.
+Dumping module `\allinv'.
+Dumping module `\allor'.
+Dumping module `\and16'.
+Dumping module `\mux16bit'.
+Dumping module `\mux2to1'.
+Dumping module `\or16'.
+Dumping module `\shifter'.
+
+yosys>

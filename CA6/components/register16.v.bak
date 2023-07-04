@@ -1,0 +1,9 @@
+`timescale 1ns/1ns
+module register16 (input clk,rst,init,ld,input[15:0] ParIn,io,output reg[15:0] ParOut);
+	always @(posedge clk,posedge rst,posedge init)begin
+		if(rst|init)
+			ParOut<=16'b0;
+		else 
+			ParOut<= (ld) ? ParIn : ParOut;
+	end
+endmodule

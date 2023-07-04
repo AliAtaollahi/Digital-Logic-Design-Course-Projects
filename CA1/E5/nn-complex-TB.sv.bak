@@ -1,0 +1,12 @@
+`timescale 1ns/1ns
+module nn_complex_TB ();
+	reg aa=1,bb=1,cc=0,dd=1;
+	wire ww;
+	nn_complex NNC(aa,bb,cc,dd,ww);
+	initial begin
+	#100 dd=0;
+	#50 cc=1;
+	#50 cc=0;
+	#50 $stop;
+	end
+endmodule

@@ -1,0 +1,17 @@
+`timescale 1ns/1ns
+module rom (input [2:0] adr,output [15:0] data);
+	reg [15:0] temp;
+	always@(adr) begin
+		case(adr)
+			0:temp=16'b1111111111111111;
+			1:temp=16'b0101010101010101;
+			2:temp=16'b0010001000100010;
+			3:temp=16'b0000110111010000;
+			4:temp=16'b0000010110011001;
+			5:temp=16'b0000001001000100;
+			6:temp=16'b0000000011101011;
+			7:temp=16'b0000000001011111;
+	assign data=temp;
+	endcase
+	end
+endmodule

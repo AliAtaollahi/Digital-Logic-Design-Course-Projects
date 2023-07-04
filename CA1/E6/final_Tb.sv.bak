@@ -1,0 +1,14 @@
+`timescale 1ns/1ns
+module nn_complex_TB ();
+	reg aa=1,bb=1,cc=1,dd=1;
+	wire ww1,ww2,ww3;
+	with_nnc WNNC(aa,bb,cc,dd,ww1);
+	with_nand_not WNN(aa,bb,cc,dd,ww2);
+	nn_complex NNC(aa,bb,cc,dd,ww3);
+	initial begin
+	#100 dd=0;
+	#100 cc=0;
+	#50 $stop;
+	end
+endmodule
+

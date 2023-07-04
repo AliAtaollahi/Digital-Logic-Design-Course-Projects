@@ -1,0 +1,10 @@
+
+State Machine - |ca6_final|controller:inst9|ps
+Name ps.add ps.Mult3 ps.Mult2 ps.Mult1 ps.Begin ps.init ps.Idle 
+ps.Idle 0 0 0 0 0 0 0 
+ps.init 0 0 0 0 0 1 1 
+ps.Begin 0 0 0 0 1 0 1 
+ps.Mult1 0 0 0 1 0 0 1 
+ps.Mult2 0 0 1 0 0 0 1 
+ps.Mult3 0 1 0 0 0 0 1 
+ps.add 1 0 0 0 0 0 1 
